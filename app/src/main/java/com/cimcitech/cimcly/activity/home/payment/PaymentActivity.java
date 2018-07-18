@@ -10,10 +10,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cimcitech.cimcly.R;
@@ -42,10 +44,6 @@ import okhttp3.MediaType;
  * 我的客户
  */
 public class PaymentActivity extends AppCompatActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
-
     @Bind(R.id.my_tv)
     TextView myTv;
     @Bind(R.id.xs_tv)
@@ -54,21 +52,28 @@ public class PaymentActivity extends AppCompatActivity {
     View myView;
     @Bind(R.id.xs_view)
     View xsView;
-    @Bind(R.id.title_ll)
-    LinearLayout titleLl;
     @Bind(R.id.search_et)
     EditText searchEt;
     @Bind(R.id.search_bt)
     Button searchBt;
-    @Bind(R.id.search_bar)
-    LinearLayout searchBar;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
-
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.status_ll)
+    LinearLayout status_Ll;
+    @Bind(R.id.who_ll)
+    LinearLayout who_Ll;
+    @Bind(R.id.who_spinner)
+    Spinner whoSpinner;
     private int pageNum = 1;
     private Result<ListPagers<PaymentCustomer>> status;
     private List<PaymentCustomer> data = new ArrayList<>();
@@ -77,18 +82,46 @@ public class PaymentActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private final int INIT_DATA = 1003;
     private boolean isLoading;
+    private boolean myData = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_payment2);
         ButterKnife.bind(this);
+        initTitle();
         initViewData();
         getData();
+        setSpinnerListener();
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        whoSpinner.setVisibility(View.VISIBLE);
+        titleName_Tv.setText("回款跟踪");
+        title_Ll.setVisibility(View.VISIBLE);
+        who_Ll.setVisibility(View.GONE);
+        status_Ll.setVisibility(View.GONE);
+    }
+
+    public void setSpinnerListener(){
+        whoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String whos = (String) whoSpinner.getAdapter().getItem(position);
+                myData = whos.equals("我的") ? true:false;
+                updateData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     //刷新数据
-    private void updateData(int num) {
+    private void updateData() {
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -99,7 +132,7 @@ public class PaymentActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         this.data.clear();
         pageNum = 1;
-        if (num == 1)
+        if (myData)
             getData(); //获取数据
         else
             getSubordinateData();
@@ -110,31 +143,31 @@ public class PaymentActivity extends AppCompatActivity {
         super.onResume();
         if (Config.isAddMyClient) {
             Config.isAddMyClient = false;
-            updateData(1);
+            updateData();
         }
     }
 
-    @OnClick({R.id.back_rl, R.id.my_tv, R.id.xs_tv, R.id.search_bt})
+    @OnClick({R.id.back_iv, R.id.my_tv, R.id.xs_tv, R.id.search_bt})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.my_tv:
                 myView.setVisibility(View.VISIBLE);
                 xsView.setVisibility(View.INVISIBLE);
-                updateData(1);
+                updateData();
                 break;
             case R.id.xs_tv:
                 myView.setVisibility(View.INVISIBLE);
                 xsView.setVisibility(View.VISIBLE);
-                updateData(2);
+                updateData();
                 break;
             case R.id.search_bt:
                 if(myView.getVisibility() == View.VISIBLE){
-                    updateData(1);
+                    updateData();
                 }else {
-                    updateData(2);
+                    updateData();
                 }
                 break;
             }

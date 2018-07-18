@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/activity_customer_visit_detail2_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:padding="10dip"
+                android:text="反馈主题："
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/questiontheme_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/bg_edittext"
+                android:hint="限制字数在100字符以内"
+                android:paddingLeft="10dip"
+                android:textColor="@color/black3"
+                android:textColorHint="@color/alpha50"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.2dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="10dip"
+            android:background="@color/alpha50" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:padding="10dip"
+                android:text="反馈类型："
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/questiontype_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/bg_edittext"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dip"
+                android:textColor="@color/black_3"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.2dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="10dip"
+            android:background="@color/black_33" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dip">
+
+            <EditText
+                android:id="@+id/questiondetail_tv"
+                android:layout_width="match_parent"
+                android:layout_height="140dip"
+                android:layout_margin="10dip"
+                android:background="@drawable/bg_edittext"
+                android:gravity="top"
+                android:hint="请写下您的宝贵意见，我们第一时间给予您反馈！"
+                android:padding="10dip"
+                android:textColor="@color/black_3"
+                android:textSize="14sp" />
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.2dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="10dip"
+            android:background="@color/alpha50" />
+
+        <Button
+            android:id="@+id/login_bt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:layout_marginTop="25dip"
+            android:background="@color/colorPrimaryDark"
+            android:text="提交"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp" />
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

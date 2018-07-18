@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -41,9 +42,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class FeedBackActivity extends AppCompatActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.questiontheme_tv)
     EditText questionthemeTv;
     @Bind(R.id.questiontype_tv)
@@ -52,6 +50,12 @@ public class FeedBackActivity extends AppCompatActivity {
     EditText questiondetailTv;
     @Bind(R.id.login_bt)
     Button loginBt;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
 
     private PopupWindow pop;
     private QuestionTypeVo typeVo;
@@ -60,15 +64,22 @@ public class FeedBackActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed_back);
+        setContentView(R.layout.activity_feed_back2);
         ButterKnife.bind(this);
+        initTitle();
         getData();
     }
 
-    @OnClick({R.id.back_rl, R.id.login_bt, R.id.questiontype_tv})
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("问题反馈");
+        title_Ll.setVisibility(View.GONE);
+    }
+
+    @OnClick({R.id.back_iv, R.id.login_bt, R.id.questiontype_tv})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.login_bt:

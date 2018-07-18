@@ -1,0 +1,522 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/activity_customer_visit_detail2_title"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="40dp"
+        android:background="#f2f2f2"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="客户代码"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/client_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:text="创建时间"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size"/>
+
+                <TextView
+                    android:id="@+id/time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/customer_visit_detail_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:text="业务员"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size"/>
+
+                <TextView
+                    android:id="@+id/user_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="客户名称"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/client_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:padding="8dip"
+                    android:gravity="right"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="意向主题"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/intentional_theme_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="产品类别"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/productCategoryName_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="产品品种"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/productVarietyName_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="产品型号"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/product_model_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="产品数量"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/product_number_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:maxLength="11"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="意向合同金额"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/contract_amount_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="预计签单日"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/delivery_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:maxLength="11"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="所在阶段"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/stage_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:maxLength="11"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="可能性"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/possibility_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:maxLength="11"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_visit_detail_label_marginTop"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:text="状态"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+
+                <TextView
+                    android:id="@+id/status_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:padding="8dip"
+                    android:textColorHint="@color/alpha30"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/customer_visit_detail_text_size" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/add_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:layout_gravity="end|bottom">
+
+        <Button
+            android:id="@+id/quoted_price_bt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:text="准备报价"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0.1dip"
+            android:layout_height="20dip"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/follow_up_bt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:text="意向跟进"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0.1dip"
+            android:layout_height="20dip"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/record_bt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:text="跟进记录"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0.1dip"
+            android:layout_height="20dip"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/close_bt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:text="关闭记录"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <!--more-->
+    <LinearLayout
+        android:id="@+id/popup_menu_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginRight="10dp"
+        android:elevation="20dp"
+        android:translationZ="20dp"
+        android:background="@color/white"
+        android:layout_gravity="end|top">
+        <include layout="@layout/contact_more_popup_menu"/>
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

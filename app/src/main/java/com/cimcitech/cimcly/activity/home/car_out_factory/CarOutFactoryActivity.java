@@ -1,5 +1,6 @@
 package com.cimcitech.cimcly.activity.home.car_out_factory;
 
+import android.net.LinkAddress;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -50,23 +51,28 @@ import okhttp3.MediaType;
  * 我的客户
  */
 public class CarOutFactoryActivity extends AppCompatActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.apply_bt)
     Button applyBt;
     @Bind(R.id.search_et)
     EditText searchEt;
     @Bind(R.id.search_bt)
     Button searchBt;
-    @Bind(R.id.search_bar)
-    LinearLayout searchBar;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.status_ll)
+    LinearLayout status_Ll;
+    @Bind(R.id.who_ll)
+    LinearLayout who_Ll;
 
     private int pageNum = 1;
     private Result<ListPagers<WaitInStorageInfo>> status;
@@ -98,10 +104,19 @@ public class CarOutFactoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_out_factory);
+        setContentView(R.layout.activity_car_out_factory2);
         ButterKnife.bind(this);
+        initTitle();
         initViewData();
         getData();
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("车辆出厂");
+        title_Ll.setVisibility(View.VISIBLE);
+        status_Ll.setVisibility(View.GONE);
+        who_Ll.setVisibility(View.GONE);
     }
 
     //刷新数据
@@ -133,26 +148,12 @@ public class CarOutFactoryActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.back_rl, R.id.apply_bt, R.id.search_bt})
+    @OnClick({R.id.back_iv, R.id.apply_bt, R.id.search_bt})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
-            /*case R.id.already_in_tv:
-                isAlreadyIn = true;
-                applyBt.setVisibility(View.VISIBLE);
-                already_in_View.setVisibility(View.VISIBLE);
-                already_apply_View.setVisibility(View.INVISIBLE);
-                updateData();
-                break;*/
-            /*case R.id.already_apply_tv:
-                isAlreadyIn = false;
-                applyBt.setVisibility(View.INVISIBLE);
-                //already_in_View.setVisibility(View.INVISIBLE);
-                //already_apply_View.setVisibility(View.VISIBLE);
-                updateData();
-                break;*/
             case R.id.apply_bt:
                 submitApply();
                 break;

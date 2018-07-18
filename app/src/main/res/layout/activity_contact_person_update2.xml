@@ -1,0 +1,333 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/activity_customer_visit_detail2_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/back_rl"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="客户代码"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+
+            <TextView
+                android:id="@+id/client_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="8dip"
+                android:gravity="right"
+                android:drawableRight="@mipmap/white_icon"
+                android:drawablePadding="@dimen/customer_visit_detail_drawable_padding"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="创建时间"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+
+            <TextView
+                android:id="@+id/time_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="8dip"
+                android:gravity="right"
+                android:drawableRight="@mipmap/white_icon"
+                android:drawablePadding="@dimen/customer_visit_detail_drawable_padding"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="所属客户"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="8dip"
+                android:text=" * "
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/client_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="8dip"
+                android:text=""
+                android:gravity="right"
+                android:drawableRight="@mipmap/more_icon"
+                android:drawablePadding="@dimen/customer_visit_detail_drawable_padding"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="姓名"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="8dip"
+                android:text=" * "
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/name_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:hint="请输入姓名"
+                android:gravity="right"
+                android:padding="8dip"
+                android:drawableRight="@mipmap/white_icon"
+                android:drawablePadding="@dimen/customer_visit_detail_drawable_padding"
+                android:textColor="@color/black_33"
+                android:textColorHint="@color/alpha30"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="联系电话"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="8dip"
+                android:text=" * "
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/mobile_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:hint="请输入联系电话"
+                android:inputType="numberDecimal"
+                android:padding="8dip"
+                android:gravity="right"
+                android:drawableRight="@mipmap/white_icon"
+                android:drawablePadding="@dimen/customer_visit_detail_drawable_padding"
+                android:textColor="@color/black_33"
+                android:textColorHint="@color/alpha30"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="手机"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="8dip"
+                android:text=" * "
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/phone_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:hint="请输入手机号码"
+                android:inputType="numberDecimal"
+                android:maxLength="11"
+                android:padding="8dip"
+                android:gravity="right"
+                android:drawableRight="@mipmap/white_icon"
+                android:drawablePadding="@dimen/customer_visit_detail_drawable_padding"
+                android:textColor="@color/black_33"
+                android:textColorHint="@color/alpha30"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="省、市"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="8dip"
+                android:text=" * "
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/area_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="8dip"
+                android:hint="请选择省市"
+                android:gravity="right"
+                android:textColorHint="@color/alpha30"
+                android:drawableRight="@mipmap/more_icon"
+                android:drawablePadding="@dimen/customer_visit_detail_drawable_padding"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dip"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="8dip"
+                android:text="详细地址"
+                android:textColor="@color/black_33"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="8dip"
+                android:text=" * "
+                android:textColor="@color/red"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/address_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:hint="请输入详细地址"
+                android:padding="8dip"
+                android:gravity="right"
+                android:drawableRight="@mipmap/white_icon"
+                android:drawablePadding="@dimen/customer_visit_detail_drawable_padding"
+                android:textColor="@color/black_33"
+                android:textColorHint="@color/alpha30"
+                android:textSize="@dimen/customer_visit_detail_text_size" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/add_bt"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_gravity="end|bottom"
+        android:layout_weight="1"
+        android:background="@color/colorPrimaryDark"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+</android.support.design.widget.CoordinatorLayout>

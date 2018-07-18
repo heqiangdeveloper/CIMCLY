@@ -48,9 +48,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class ProvinceTop10ReportDetailActivity extends AppCompatActivity implements View.OnClickListener {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.status_bt)
     Button statusBt;
     @Bind(R.id.status_bt_sanjiao)
@@ -59,18 +56,6 @@ public class ProvinceTop10ReportDetailActivity extends AppCompatActivity impleme
     EditText searchEt;
     @Bind(R.id.search_bt)
     Button searchBt;
-    @Bind(R.id.search_bar)
-    LinearLayout searchBar;
-    @Bind(R.id.order_amount_total_tv)
-    TextView orderAmountTotalTv;
-    @Bind(R.id.order_count_tv)
-    TextView orderCountTv;
-    @Bind(R.id.amount_money_tv)
-    LinearLayout amountMoneyTv;
-    @Bind(R.id.opport_amount_total_count_tv)
-    TextView opportAmountTotalCountTv;
-    @Bind(R.id.more_tv)
-    TextView moreTv;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
@@ -78,8 +63,14 @@ public class ProvinceTop10ReportDetailActivity extends AppCompatActivity impleme
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
     @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.who_ll)
+    LinearLayout who_Ll;
 
-    LinearLayout titleLl;
     private PopupWindow pop;
     private int pageNum = 1;
     private AreaContractAmountDetailAdapter adapter;
@@ -99,13 +90,21 @@ public class ProvinceTop10ReportDetailActivity extends AppCompatActivity impleme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_province_top10_report_detail);
+        setContentView(R.layout.activity_province_top10_report_detail2);
         ButterKnife.bind(this);
+        initTitle();
 
         PROVINCE = getIntent().getStringExtra("province");
         YEAR = getIntent().getStringExtra("year");
         initViewData();
         getCurrStageSelect();
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("合同总额前10的省份年度合同数统计明细");
+        title_Ll.setVisibility(View.VISIBLE);
+        who_Ll.setVisibility(View.GONE);
     }
 
     //刷新数据
@@ -133,10 +132,10 @@ public class ProvinceTop10ReportDetailActivity extends AppCompatActivity impleme
         }
     }
 
-    @OnClick({R.id.back_rl,R.id.status_bt_sanjiao,R.id.status_bt,R.id.search_bt})
+    @OnClick({R.id.back_iv,R.id.status_bt_sanjiao,R.id.status_bt,R.id.search_bt})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.status_bt_sanjiao:
@@ -195,9 +194,6 @@ public class ProvinceTop10ReportDetailActivity extends AppCompatActivity impleme
     }
 
     public void initViewData() {
-        backRl.setOnClickListener(this);
-        statusBt.setOnClickListener(this);
-        searchBt.setOnClickListener(this);
         adapter = new AreaContractAmountDetailAdapter(ProvinceTop10ReportDetailActivity.this, data);
         swipeRefreshLayout.setColorSchemeResources(R.color.blueStatus);
         swipeRefreshLayout.post(new Runnable() {

@@ -48,9 +48,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class MyClientAddActivity extends BaseActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.add_bt)
     Button addBt;
     @Bind(R.id.system_date_tv)
@@ -92,6 +89,13 @@ public class MyClientAddActivity extends BaseActivity {
     @Bind(R.id.beizhu_et)
     EditText beizhuEt;
 
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+
     //modidied by qianghe on 2017/10/11 begin
     @Bind(R.id.province_Linear)
     LinearLayout provinceLinear;
@@ -118,8 +122,9 @@ public class MyClientAddActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_my_client);
+        setContentView(R.layout.activity_add_my_client2);
         ButterKnife.bind(this);
+        initTitle();
         systemDateTv.setText(DateTool.getSystemDate());
         getData();
 
@@ -137,8 +142,14 @@ public class MyClientAddActivity extends BaseActivity {
         //modidied by qianghe on 2017/10/11 end
     }
 
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("新建客户信息");
+        title_Ll.setVisibility(View.GONE);
+    }
+
     @OnClick({R.id.customer_category_tv, R.id.country_tv, R.id.province_tv, R.id.city_tv,
-            R.id.taxes_tv, R.id.add_bt, R.id.back_rl, R.id.user_provinces_tv})
+            R.id.taxes_tv, R.id.add_bt, R.id.back_iv, R.id.user_provinces_tv})
     public void onclick(View view) {
         switch (view.getId()) {
             case R.id.customer_category_tv: //获取客户类别
@@ -206,7 +217,7 @@ public class MyClientAddActivity extends BaseActivity {
                 mLoading.show();
                 addData();
                 break;
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.user_provinces_tv: //联系人信息 省、市

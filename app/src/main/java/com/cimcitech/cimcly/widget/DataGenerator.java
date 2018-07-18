@@ -14,10 +14,10 @@ import com.cimcitech.cimcly.activity.user.UserFragment;
 public class DataGenerator {
     public static Fragment[] getFragments() {
         Fragment fragments[] = new Fragment[4];
-        fragments[0] = new HomeFragment();
-        fragments[1] = new CustomerVisitFragment();
-        fragments[2] = new IntentionTrackFragment();
-        fragments[3] = new UserFragment();
+        fragments[0] = new HomeFragment();//首页
+        fragments[1] = new CustomerVisitFragment();//客户拜访
+        fragments[2] = new IntentionTrackFragment();//意向跟踪
+        fragments[3] = new UserFragment();//我的
         //fragments[4] = new LeaderHomeFragment();
         return fragments;
     }

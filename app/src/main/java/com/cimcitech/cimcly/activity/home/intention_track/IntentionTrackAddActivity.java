@@ -6,8 +6,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +14,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cimcitech.cimcly.R;
 import com.cimcitech.cimcly.adapter.PopupWindowAdapter;
@@ -57,9 +55,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class IntentionTrackAddActivity extends BaseActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.add_bt)
     Button addBt;
     @Bind(R.id.client_no)
@@ -96,6 +91,14 @@ public class IntentionTrackAddActivity extends BaseActivity {
     EditText remarksInformationEt;
     @Bind(R.id.currency_tv)
     TextView currencyTv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.who_spinner)
+    Spinner whoSpinner;
 
     public int intValue = 0;
     private PopupWindow pop;
@@ -125,8 +128,10 @@ public class IntentionTrackAddActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_intention_track);
+        setContentView(R.layout.activity_add_intention_track2);
         ButterKnife.bind(this);
+        initTitle();
+
         getClientData();
         getOpportSelect();
         info = (CustomerVisitInfoVo) this.getIntent().getSerializableExtra("CustomerVisitInfo");
@@ -140,28 +145,34 @@ public class IntentionTrackAddActivity extends BaseActivity {
         setDataView();
     }
 
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        title_Ll.setVisibility(View.GONE);
+        whoSpinner.setVisibility(View.GONE);
+        titleName_Tv.setText("新建意向订单");
+    }
 
     public void setDataView() {
         //客户拜访详情跳转过来
         if (info != null) {
-            clientNameTv.setText(info.getData().getCustname());
+            //clientNameTv.setText(info.getData().getCustname());
             clientNameTv.setTextColor(Color.parseColor("#333333"));
             getContactPersonData(info.getData().getCustid());
             //我的客户过来的
         } else if (customer != null) {
-            clientNameTv.setText(customer.getData().getCustname());
+            //clientNameTv.setText(customer.getData().getCustname());
             clientNameTv.setTextColor(Color.parseColor("#333333"));
             getContactPersonData(customer.getData().getCustid());
         }
     }
 
-    @OnClick({R.id.back_rl, R.id.client_name_tv, R.id.contact_person_tv, R.id.product_category_tv,
+    @OnClick({R.id.back_iv, R.id.client_name_tv, R.id.contact_person_tv, R.id.product_category_tv,
             R.id.product_variety_tv, R.id.product_model_tv, R.id.delivery_date_tv, R.id.order_type_tv,
             R.id.possibility_tv, R.id.payment_method_tv, R.id.currency_tv, R.id.add_bt})
     public void onclick(View v) {
         List<String> list;
         switch (v.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.client_name_tv:
@@ -352,6 +363,7 @@ public class IntentionTrackAddActivity extends BaseActivity {
                 .append(mMonth + 1).append("-")
                 .append(mDay).append(""))
                 .toString();
+        string = DateTool.transferDateStr(string);//转化为标准日期
         try {
             SimpleDateFormat foramt = new SimpleDateFormat("yyyy-MM-dd");
             Date mDate1 = foramt.parse(timeTv.getText().toString().trim());

@@ -50,14 +50,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class QuotedPriceAddActivity extends BaseActivity {
-
-
-    @Bind(R.id.back_rl)
-    ImageView backRl;
-    @Bind(R.id.title)
-    TextView title;
-    @Bind(R.id.right_tv)
-    TextView rightTv;
     @Bind(R.id.cust_name_tv)
     TextView custNameTv;
     @Bind(R.id.quote_stand_price_tv)
@@ -100,6 +92,14 @@ public class QuotedPriceAddActivity extends BaseActivity {
     ListView listContent4;
     @Bind(R.id.save_bt)
     Button saveBt;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.back_iv)
+    ImageView back_Iv;
 
     private OpportUnitInfoVo infoVo; //意向详情传过来的
 
@@ -136,15 +136,22 @@ public class QuotedPriceAddActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quoted_price_add);
+        setContentView(R.layout.activity_quoted_price_add2);
         ButterKnife.bind(this);
+        initTitle();
         infoVo = (OpportUnitInfoVo) this.getIntent().getSerializableExtra("infoVo");
         mLoading.show();
         getIntentionTrackData();
     }
 
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        title_Ll.setVisibility(View.GONE);
+        titleName_Tv.setText("新增报价单");
+    }
+
     @OnClick({R.id.textView1, R.id.textView2, R.id.textView3, R.id.textView4,
-            R.id.back_rl, R.id.isbring_chassis_tv, R.id.save_bt})
+            R.id.back_iv, R.id.isbring_chassis_tv, R.id.save_bt})
     public void onclick(View view) {
         switch (view.getId()) {
             case R.id.textView1:
@@ -163,7 +170,7 @@ public class QuotedPriceAddActivity extends BaseActivity {
                 setImageViewShow(imageView4);
                 setListViewShow(listContent4);
                 break;
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.isbring_chassis_tv:
@@ -382,6 +389,7 @@ public class QuotedPriceAddActivity extends BaseActivity {
                                         } else {
                                             ToastUtil.showToast("不存在该车型的报价单模板");
                                             saveBt.setVisibility(View.GONE);
+                                            back_Iv.callOnClick();
                                         }
                                 } catch (Exception e) {
                                     e.printStackTrace();

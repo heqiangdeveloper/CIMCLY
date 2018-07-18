@@ -10,7 +10,6 @@
         android:layout_marginBottom="10dip"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
-        android:background="@drawable/bg_layout"
         android:orientation="vertical">
 
         <TextView
@@ -44,6 +43,10 @@
             android:padding="5dip"
             android:text="销售员"
             android:textColor="@color/black_33" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/colorPrimary"/>
     </LinearLayout>
 
 </LinearLayout>

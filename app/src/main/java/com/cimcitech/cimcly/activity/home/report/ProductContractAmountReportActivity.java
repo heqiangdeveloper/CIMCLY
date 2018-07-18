@@ -51,9 +51,6 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 public class ProductContractAmountReportActivity extends AppCompatActivity{
-
-    @Bind(R.id.back_rl)
-    ImageView backRl;
     @Bind(R.id.barChart)
     BarChart barChart;
 
@@ -77,6 +74,10 @@ public class ProductContractAmountReportActivity extends AppCompatActivity{
     LinearLayout linearTotal;
     @Bind(R.id.year_spinner)
     Spinner yearSpinner;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
 
     private Result<ListReportPagers<ReportData>> status;
     private List<ReportData> data = new ArrayList<>();
@@ -93,9 +94,15 @@ public class ProductContractAmountReportActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report_product_contract_amount);
+        setContentView(R.layout.activity_report_product_contract_amount2);
         ButterKnife.bind(this);
+        initTitle();
         getYear();
+    }
+
+    public void initTitle(){
+        titleName_Tv.setText("不同产品年度合同数统计");
+        title_Ll.setVisibility(View.GONE);
     }
 
     public void getYear(){
@@ -113,7 +120,7 @@ public class ProductContractAmountReportActivity extends AppCompatActivity{
         });
     }
 
-    @OnClick({R.id.back_rl})
+    @OnClick({R.id.back_iv})
     public void onclick(View view) {
         finish();
     }

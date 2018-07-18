@@ -1,10 +1,12 @@
 package com.cimcitech.cimcly.activity.home.order_contract;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,20 +43,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class OrderContractDetailActivity extends BaseActivity {
-
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
-    @Bind(R.id.my_tv)
-    TextView myTv;
-    @Bind(R.id.xs_tv)
-    TextView xsTv;
-    @Bind(R.id.my_view)
-    View myView;
-    @Bind(R.id.xs_view)
-    View xsView;
-    @Bind(R.id.title_ll)
-    LinearLayout titleLl;
     @Bind(R.id.contractno_tv)
     TextView contractnoTv;
     @Bind(R.id.owner_tv)
@@ -153,14 +141,35 @@ public class OrderContractDetailActivity extends BaseActivity {
     ListView listContent3;
     @Bind(R.id.listContent4)
     ListView listContent4;
-    @Bind(R.id.save_bt)
-    Button saveBt;
-    @Bind(R.id.cancel_bt)
-    Button cancelBt;
-    @Bind(R.id.submit_bt)
-    Button submitBt;
-    @Bind(R.id.bottom_layout)
-    LinearLayout bottomLayout;
+
+    @Bind(R.id.my_tv)
+    TextView myTv;
+    @Bind(R.id.xs_tv)
+    TextView xsTv;
+    @Bind(R.id.my_view)
+    View myView;
+    @Bind(R.id.xs_view)
+    View xsView;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.search_ll)
+    LinearLayout search_Ll;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.popup_menu_layout)
+    LinearLayout popup_menu_Layout;
+    @Bind(R.id.item_add_tv)
+    TextView item_add_Tv;
+    @Bind(R.id.item_invalid_tv)
+    TextView item_invalid_Tv;
+    @Bind(R.id.item_delete_tv)
+    TextView item_delete_Tv;
+    @Bind(R.id.item_finish_tv)
+    TextView item_finish_Tv;
+    @Bind(R.id.item_save_tv)
+    TextView item_save_Tv;
 
     private View order_contract, specifications_confirmation_view;
     private OrderStandardDetailVo orderStandardDetailVo;
@@ -185,13 +194,55 @@ public class OrderContractDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_contract_detail);
+        setContentView(R.layout.activity_order_contract_detail2);
         ButterKnife.bind(this);
+        initTitle();
+        initPopupMenu();
         sOrderId = this.getIntent().getIntExtra("sOrderId", 0);
         order_contract = this.findViewById(R.id.order_contract_detail_view);
         specifications_confirmation_view = this.findViewById(R.id.specifications_confirmation_view);
         mLoading.show();
         getData();
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("销售订单合同详情");
+        title_Ll.setVisibility(View.VISIBLE);
+        search_Ll.setVisibility(View.GONE);
+        myTv.setText("订单合同");
+        xsTv.setText("技术规格确认书");
+    }
+
+    public void initPopupMenu(){
+        popup_menu_Layout.setVisibility(View.GONE);
+        item_add_Tv.setVisibility(View.GONE);
+        item_save_Tv.setVisibility(View.VISIBLE);
+        item_delete_Tv.setVisibility(View.GONE);
+        item_invalid_Tv.setVisibility(View.VISIBLE);
+        item_finish_Tv.setVisibility(View.VISIBLE);
+
+        item_save_Tv.setText("保存");
+        item_invalid_Tv.setText("终止");
+        item_finish_Tv.setText("提交");
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            int x = (int) ev.getX();
+            int y = (int) ev.getY();
+
+            if (null != popup_menu_Layout && popup_menu_Layout.getVisibility() == View.VISIBLE) {
+                Rect hitRect = new Rect();
+                popup_menu_Layout.getGlobalVisibleRect(hitRect);
+                if (!hitRect.contains(x, y)) {
+                    popup_menu_Layout.setVisibility(View.GONE);
+                    return true;
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     public void setListViewShow(ListView listView) {
@@ -210,11 +261,12 @@ public class OrderContractDetailActivity extends BaseActivity {
         imageView.setVisibility(View.VISIBLE);
     }
 
-    @OnClick({R.id.back_rl, R.id.my_tv, R.id.xs_tv, R.id.textView1,
-            R.id.textView2, R.id.textView3, R.id.textView4, R.id.save_bt, R.id.cancel_bt, R.id.submit_bt})
+    @OnClick({R.id.back_iv, R.id.my_tv, R.id.xs_tv, R.id.textView1,R.id.more_tv,
+            R.id.textView2, R.id.textView3, R.id.textView4, R.id.item_save_tv,
+            R.id.item_invalid_tv, R.id.item_finish_tv})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.my_tv:
@@ -245,7 +297,8 @@ public class OrderContractDetailActivity extends BaseActivity {
                 setImageViewShow(imageView4);
                 setListViewShow(listContent4);
                 break;
-            case R.id.save_bt:
+            case R.id.item_save_tv:
+                popup_menu_Layout.setVisibility(View.GONE);
                 if (countTv.getText().toString().trim().equals("")
                         || Integer.parseInt(countTv.getText().toString().trim()) <= 0) {
                     ToastUtil.showToast("上装数量必须大于0");
@@ -253,7 +306,8 @@ public class OrderContractDetailActivity extends BaseActivity {
                     sContOrderSave();
                 }
                 break;
-            case R.id.cancel_bt:
+            case R.id.item_invalid_tv:
+                popup_menu_Layout.setVisibility(View.GONE);
                 if (countTv.getText().toString().trim().equals("")
                         || Integer.parseInt(countTv.getText().toString().trim()) <= 0) {
                     ToastUtil.showToast("上装数量必须大于0");
@@ -261,7 +315,8 @@ public class OrderContractDetailActivity extends BaseActivity {
                     sContOrderCancel();
                 }
                 break;
-            case R.id.submit_bt:
+            case R.id.item_finish_tv:
+                popup_menu_Layout.setVisibility(View.GONE);
                 if (countTv.getText().toString().trim().equals("")
                         || Integer.parseInt(countTv.getText().toString().trim()) <= 0) {
                     ToastUtil.showToast("上装数量必须大于0");
@@ -269,6 +324,9 @@ public class OrderContractDetailActivity extends BaseActivity {
                     mLoading.show();
                     sContOrderSubmit();
                 }
+                break;
+            case R.id.more_tv:
+                popup_menu_Layout.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -378,9 +436,9 @@ public class OrderContractDetailActivity extends BaseActivity {
         final double deposit;
         OrderContractDetailVo.DataBean data = detailVo.getData();
         if (data.getFstate().equals("FS01") && data.getIscommit().equals("N")) {
-            bottomLayout.setVisibility(View.VISIBLE);
+            more_Tv.setVisibility(View.VISIBLE);
         } else
-            bottomLayout.setVisibility(View.GONE);
+            more_Tv.setVisibility(View.GONE);
         contractnoTv.setText(data.getContractno());
         ownerTv.setText(data.getOwnerName());
         ordernoTv.setText(data.getOrderno());

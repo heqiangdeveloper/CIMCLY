@@ -22,9 +22,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,8 +69,6 @@ import okhttp3.MediaType;
 
 public class CustomerVisitAddActivity extends BaseActivity {
 
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.client_no_tv)
     TextView clientNoTv;
     @Bind(R.id.create_time_tv)
@@ -92,6 +91,17 @@ public class CustomerVisitAddActivity extends BaseActivity {
     TextView locationTv;
     @Bind(R.id.visit_summary_tv)
     EditText visitSummaryTv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.status_ll)
+    LinearLayout status_Ll;
+    @Bind(R.id.who_spinner)
+    Spinner whoSpinner;
 
     private LocationService locationService;
     private ArrayList<Poi> pois = new ArrayList<>(); //获取到的定位位置的对象
@@ -158,8 +168,10 @@ public class CustomerVisitAddActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_customer_visit);
+        setContentView(R.layout.activity_add_customer_visit2);
         ButterKnife.bind(this);
+        initTitle();
+
         createTimeTv.setText(DateTool.getSystemDate());
         visitTimeTv.setText(DateTool.getSystemDate());
         visitTime2Tv.setText(DateTool.getSystemDate());
@@ -195,6 +207,13 @@ public class CustomerVisitAddActivity extends BaseActivity {
         }else {
             getLocation();
         }
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        title_Ll.setVisibility(View.GONE);
+        whoSpinner.setVisibility(View.GONE);
+        titleName_Tv.setText("新建拜访记录");
     }
 
     @Override
@@ -276,12 +295,12 @@ public class CustomerVisitAddActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.back_rl, R.id.location_tv, R.id.client_name_tv, R.id.client_manager_tv
+    @OnClick({R.id.back_iv, R.id.location_tv, R.id.client_name_tv, R.id.client_manager_tv
             , R.id.visit_time_tv, R.id.visit_time_2_tv, R.id.add_bt})
     public void onclick(View view) {
         List<String> list;
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.location_tv:
@@ -357,11 +376,20 @@ public class CustomerVisitAddActivity extends BaseActivity {
                 .append(mMonth + 1).append("-")
                 .append(mDay).append(""))
                 .toString();
+        //下面将“2018-8-8”格式时间，转化为标准日期“2018-08-06”
+        SimpleDateFormat foramt = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try{
+            date = foramt.parse(string);
+        }catch (Exception e){
+
+        }
+        string = foramt.format(date);
+
         if (visitDate == 0)
             visitTimeTv.setText(string);
         else {
             try {
-                SimpleDateFormat foramt = new SimpleDateFormat("yyyy-MM-dd");
                 Date mDate1 = foramt.parse(visitTimeTv.getText().toString().trim());
                 Date mDate2 = foramt.parse(string);
                 if (mDate1.compareTo(mDate2) > 0) {

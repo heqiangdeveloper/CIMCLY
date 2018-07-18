@@ -49,9 +49,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class AreaReportDetailActivity extends AppCompatActivity implements View.OnClickListener {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.status_bt)
     Button statusBt;
     @Bind(R.id.status_bt_sanjiao)
@@ -60,27 +57,22 @@ public class AreaReportDetailActivity extends AppCompatActivity implements View.
     EditText searchEt;
     @Bind(R.id.search_bt)
     Button searchBt;
-    @Bind(R.id.search_bar)
-    LinearLayout searchBar;
-    @Bind(R.id.order_amount_total_tv)
-    TextView orderAmountTotalTv;
-    @Bind(R.id.order_count_tv)
-    TextView orderCountTv;
-    @Bind(R.id.amount_money_tv)
-    LinearLayout amountMoneyTv;
-    @Bind(R.id.opport_amount_total_count_tv)
-    TextView opportAmountTotalCountTv;
-    @Bind(R.id.more_tv)
-    TextView moreTv;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
-    @Bind(R.id.title_ll)
 
-    LinearLayout titleLl;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.who_ll)
+    LinearLayout who_Ll;
+
     private PopupWindow pop;
     private int pageNum = 1;
     private IntentionTrackAdapter adapter;
@@ -99,12 +91,20 @@ public class AreaReportDetailActivity extends AppCompatActivity implements View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_area_report_detail);
+        setContentView(R.layout.activity_area_report_detail2);
         ButterKnife.bind(this);
+        initTitle();
 
         REGION = getIntent().getIntExtra("region",0);
         initViewData();
         getCurrStageSelect();
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("不同区域的意向订单统计明细");
+        title_Ll.setVisibility(View.VISIBLE);
+        who_Ll.setVisibility(View.GONE);
     }
 
     //刷新数据
@@ -134,10 +134,10 @@ public class AreaReportDetailActivity extends AppCompatActivity implements View.
         }
     }
 
-    @OnClick({R.id.back_rl,R.id.status_bt_sanjiao,R.id.status_bt,R.id.search_bt})
+    @OnClick({R.id.back_iv,R.id.status_bt_sanjiao,R.id.status_bt,R.id.search_bt})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.status_bt_sanjiao:
@@ -196,9 +196,6 @@ public class AreaReportDetailActivity extends AppCompatActivity implements View.
     }
 
     public void initViewData() {
-        backRl.setOnClickListener(this);
-        statusBt.setOnClickListener(this);
-        searchBt.setOnClickListener(this);
         adapter = new IntentionTrackAdapter(AreaReportDetailActivity.this, data);
         swipeRefreshLayout.setColorSchemeResources(R.color.blueStatus);
         swipeRefreshLayout.post(new Runnable() {

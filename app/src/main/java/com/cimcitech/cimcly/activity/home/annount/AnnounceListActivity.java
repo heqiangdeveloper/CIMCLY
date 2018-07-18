@@ -10,7 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cimcitech.cimcly.R;
@@ -34,15 +36,19 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class AnnounceListActivity extends AppCompatActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
+
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
 
     private int pageNum = 1;
     private AnnounceVo announceVo;
@@ -56,13 +62,20 @@ public class AnnounceListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_annount_list);
+        setContentView(R.layout.activity_annount_list2);
         ButterKnife.bind(this);
+        initTitle();
         initViewData();
         getData();
     }
 
-    @OnClick(R.id.back_rl)
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        title_Ll.setVisibility(View.GONE);
+        titleName_Tv.setText("系统公告");
+    }
+
+    @OnClick(R.id.back_iv)
     public void onclick() {
         finish();
     }

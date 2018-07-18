@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/activity_report_area_contract_amount_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_weight="4"
+            android:layout_height="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp">
+
+        </com.github.mikephil.charting.charts.BarChart>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="7"
+            android:layout_height="0dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_marginTop="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dp">
+
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="15dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="区域"
+                        android:textColor="@color/black_3"
+                        android:textSize="14sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="\\"
+                        android:layout_gravity="center"
+                        android:textColor="@color/black_3"
+                        android:textSize="34sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="维度"
+                        android:textColor="@color/black_3"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:text="合同数"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:text="车数量"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:text="合同总额"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/customer_top10_linear_padding">
+
+                <TextView
+                    android:id="@+id/area1_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="区域"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area1_carCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area1_totalprice_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="23"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area1_contCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/linear2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/customer_top10_linear_padding">
+
+                <TextView
+                    android:id="@+id/area2_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="二月"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area2_carCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area2_totalprice_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="23"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area2_contCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/linear3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/customer_top10_linear_padding">
+
+                <TextView
+                    android:id="@+id/area3_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="三月"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area3_carCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area3_totalprice_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="23"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area3_contCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/linear4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/customer_top10_linear_padding">
+
+                <TextView
+                    android:id="@+id/area4_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="三月"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area4_carCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area4_totalprice_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="23"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area4_contCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/linear5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/customer_top10_linear_padding">
+
+                <TextView
+                    android:id="@+id/area5_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="三月"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area5_carCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area5_totalprice_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="23"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area5_contCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/linear6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/customer_top10_linear_padding">
+
+                <TextView
+                    android:id="@+id/area6_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="三月"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area6_carCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area6_totalprice_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="23"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area6_contCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/linear7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/customer_top10_linear_padding">
+
+                <TextView
+                    android:id="@+id/area7_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="三月"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area7_carCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area7_totalprice_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="23"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area7_contCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/linear8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/customer_top10_linear_padding">
+
+                <TextView
+                    android:id="@+id/area8_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="合计"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area8_carCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area8_totalprice_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="23"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/area8_contCount_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/customer_top10_linear_padding">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="合计"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black_3"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

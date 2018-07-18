@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="tab_normal_color">#515051</color>
+    <color name="contact_detail_more_item_clicked">#F0F0F0</color>
     <color name="colorPrimary">#3DA7F7</color>
     <color name="colorPrimaryDark">#3DA7F7</color>
     <color name="colorAccent">#3DA7F7</color>

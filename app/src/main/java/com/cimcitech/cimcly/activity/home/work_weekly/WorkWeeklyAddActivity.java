@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -69,9 +70,6 @@ import okhttp3.MediaType;
 import static android.R.id.list;
 
 public class WorkWeeklyAddActivity extends BaseActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.start_time_tv)
     TextView startTimeTv;
     @Bind(R.id.end_time_tv)
@@ -80,8 +78,6 @@ public class WorkWeeklyAddActivity extends BaseActivity {
     EditText performanceTv;
     @Bind(R.id.nextworktask_tv)
     EditText nextworktaskTv;
-    @Bind(R.id.add_bt)
-    Button addBt;
     @Bind(R.id.work_type_tv)
     TextView workTypeTv;
     @Bind(R.id.location_tv)
@@ -96,6 +92,12 @@ public class WorkWeeklyAddActivity extends BaseActivity {
     TextView performanceNameTv;
     @Bind(R.id.nextworktask_name_tv)
     TextView nextworktaskNameTv;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
 
     private ReportTypeVo reportTypeVo;
     private ReportTypeVo.DataBean itemType;
@@ -154,8 +156,9 @@ public class WorkWeeklyAddActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_work_weekly_add);
+        setContentView(R.layout.activity_work_weekly_add2);
         ButterKnife.bind(this);
+        initTitle();
         startTimeTv.setText(DateTool.getSystemDate());
         endTimeTv.setText(DateTool.getSystemDate());
         final Calendar ca = Calendar.getInstance();
@@ -189,11 +192,18 @@ public class WorkWeeklyAddActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.back_rl, R.id.add_bt, R.id.start_time_tv, R.id.end_time_tv, R.id.work_type_tv, R.id.location_tv})
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("添加工作汇报");
+        title_Ll.setVisibility(View.GONE);
+    }
+
+    @OnClick({R.id.back_iv,R.id.add_bt, R.id.start_time_tv, R.id.end_time_tv, R.id.work_type_tv,
+            R.id.location_tv})
     public void onclick(View view) {
 
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.add_bt:

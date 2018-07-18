@@ -1,6 +1,8 @@
 package com.cimcitech.cimcly.activity.home.work_weekly;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
@@ -9,18 +11,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cimcitech.cimcly.ApkApplication;
 import com.cimcitech.cimcly.R;
 import com.cimcitech.cimcly.adapter.work_weekly.WorkWeeklyAdapter;
+import com.cimcitech.cimcly.adapter.work_weekly.WorkWeeklyPopupWindowAdapter;
 import com.cimcitech.cimcly.bean.work_weekly.WorkWeeklyReq;
 import com.cimcitech.cimcly.bean.work_weekly.WorkWeeklyVo;
 import com.cimcitech.cimcly.utils.Config;
@@ -40,11 +51,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class WorkWeeklyActivity extends AppCompatActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
-    @Bind(R.id.add_bt)
-    Button addBt;
     @Bind(R.id.my_tv)
     TextView myTv;
     @Bind(R.id.xs_tv)
@@ -53,26 +59,33 @@ public class WorkWeeklyActivity extends AppCompatActivity {
     View myView;
     @Bind(R.id.xs_view)
     View xsView;
-    @Bind(R.id.title_ll)
-    LinearLayout titleLl;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
-    @Bind(R.id.textView1)
-    Button textView1;
-    @Bind(R.id.textView2)
-    Button textView2;
-    @Bind(R.id.textView3)
-    Button textView3;
-    @Bind(R.id.imageView1)
-    ImageView imageView1;
-    @Bind(R.id.imageView2)
-    ImageView imageView2;
-    @Bind(R.id.imageView3)
-    ImageView imageView3;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.search_ll)
+    LinearLayout search_Ll;
+    @Bind(R.id.add_ib)
+    ImageButton add_Ib;
+    @Bind(R.id.who_spinner)
+    Spinner whoSpinner;
+    @Bind(R.id.who_ll)
+    LinearLayout who_Ll;
+
+    @Bind(R.id.ww_top_area)
+    LinearLayout ww_top_Area;
+    @Bind(R.id.ww_top_category_name)
+    TextView ww_top_category_Name;
+    @Bind(R.id.ww_top_category_label)
+    TextView ww_top_category_Label;
 
     private int pageNum = 1;
     private WorkWeeklyVo weeklyVo;
@@ -83,21 +96,60 @@ public class WorkWeeklyActivity extends AppCompatActivity {
     private final int INIT_DATA = 1003;
     private boolean isLoading;
     public static boolean isMy = true;
+    private PopupWindow pop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_work_weekly);
+        setContentView(R.layout.activity_work_weekly2);
         ButterKnife.bind(this);
+        initTitle();
         isMy = true;
         initViewData();
-        getData();
+        Config.type = 1;
+        setSpinnerListener();
+        //getData();
     }
 
-    @OnClick({R.id.back_rl, R.id.my_tv, R.id.xs_tv, R.id.add_bt, R.id.textView1, R.id.textView2, R.id.textView3})
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        whoSpinner.setVisibility(View.VISIBLE);
+        titleName_Tv.setText("工作汇报");
+        title_Ll.setVisibility(View.GONE);
+        search_Ll.setVisibility(View.GONE);
+        who_Ll.setVisibility(View.GONE);
+    }
+
+    public void setSpinnerListener(){
+        whoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String whos = (String) whoSpinner.getAdapter().getItem(position);
+                isMy = whos.equals("我的") ? true:false;
+                updateData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @OnClick({R.id.back_iv, R.id.my_tv, R.id.xs_tv, R.id.add_ib,R.id.ww_top_area})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.ww_top_area:
+                ww_top_category_Label.setText(getResources().getString(R.string.
+                        message_top_category_label_open));
+                List<String> list = new ArrayList<String>();
+                list.add("今天");
+                list.add("本周");
+                list.add("历史");
+                showContactUsPopWin(WorkWeeklyActivity.this, "", list);
+                pop.showAtLocation(view, Gravity.CENTER, 0, 0);
+                break;
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.my_tv:
@@ -112,36 +164,64 @@ public class WorkWeeklyActivity extends AppCompatActivity {
                 xsView.setVisibility(View.VISIBLE);
                 updateData();
                 break;
-            case R.id.add_bt:
+            case R.id.add_ib:
                 startActivity(new Intent(WorkWeeklyActivity.this, WorkWeeklyAddActivity.class));
                 break;
             case R.id.search_bt:
                 updateData();
                 ApkApplication.imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
-            case R.id.textView1:
-                setImageViewShow(imageView1);
-                Config.type = 1;
-                updateData();
-                break;
-            case R.id.textView2:
-                setImageViewShow(imageView2);
-                Config.type = 2;
-                updateData();
-                break;
-            case R.id.textView3:
-                setImageViewShow(imageView3);
-                Config.type = 3;
-                updateData();
-                break;
         }
     }
 
-    public void setImageViewShow(ImageView imageView) {
-        imageView1.setVisibility(View.INVISIBLE);
-        imageView2.setVisibility(View.INVISIBLE);
-        imageView3.setVisibility(View.INVISIBLE);
-        imageView.setVisibility(View.VISIBLE);
+    public void showContactUsPopWin(Context context, String title, final List<String> list) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.dialog_message, null);
+        //view.getBackground().setAlpha(100);
+        // 创建PopupWindow对象
+        pop = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, false);
+        View pop_reward_view = view.findViewById(R.id.pop_reward_view);
+        TextView name_tv = view.findViewById(R.id.pop_item_name_tv);
+        TextView label_tv = view.findViewById(R.id.pop_item_label_tv);
+        String content = ww_top_category_Name.getText().toString();
+        final WorkWeeklyPopupWindowAdapter adapter = new WorkWeeklyPopupWindowAdapter(context, list, content);
+        ListView listView = view.findViewById(R.id.listContent);
+        listView.setAdapter(adapter);
+        // 需要设置一下此参数，点击外边可消失
+        pop.setBackgroundDrawable(new BitmapDrawable());
+        // 设置点击窗口外边窗口消失
+        pop.setOutsideTouchable(true);
+        // 设置此参数获得焦点，否则无法点击
+        pop.setFocusable(true);
+        pop_reward_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ww_top_category_Label.setText(getResources().getString(R.string.
+                        message_top_category_label_close));
+                pop.dismiss();
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ww_top_category_Name.setText(list.get(i));
+                ww_top_category_Label.setText(getResources().getString(R.string.
+                        message_top_category_label_close));
+                pop.dismiss();
+                switch(i){
+                    case 0:
+                        Config.type = 1;
+                        break;
+                    case 1:
+                        Config.type = 2;
+                        break;
+                    case 2:
+                        Config.type = 3;
+                        break;
+                }
+                updateData();
+            }
+        });
     }
 
     //刷新数据
@@ -284,7 +364,6 @@ public class WorkWeeklyActivity extends AppCompatActivity {
 
                             @Override
                             public void onResponse(String response, int id) {
-                                Log.d("mytest","workweekly response is: " + response);
                                 weeklyVo = GjsonUtil.parseJsonWithGson(response, WorkWeeklyVo.class);
                                 if (weeklyVo != null) {
                                     if (weeklyVo.isSuccess()) {

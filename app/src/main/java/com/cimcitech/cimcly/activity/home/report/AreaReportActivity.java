@@ -51,9 +51,6 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 public class AreaReportActivity extends AppCompatActivity{
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.barChart)
     BarChart barChart;
 
@@ -164,6 +161,13 @@ public class AreaReportActivity extends AppCompatActivity{
     @Bind(R.id.area8_sure_tv)
     TextView area8_sure_Tv;
 
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+
     private Result<ListReportPagers<ReportData>> status;
     private List<ReportData> data = new ArrayList<>();
 
@@ -226,18 +230,19 @@ public class AreaReportActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report_area);
+        setContentView(R.layout.activity_report_area2);
         ButterKnife.bind(this);
-
-        //PopupLoadingWindow();
-
-        //((TextView)linear1.getChildAt(4)).setText("ssdd");
+        initTitle();
         getData();
-
-
     }
 
-    @OnClick({R.id.back_rl})
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("不同区域的意向订单统计明细");
+        title_Ll.setVisibility(View.GONE);
+    }
+
+    @OnClick({R.id.back_iv})
     public void onclick(View view) {
         finish();
     }

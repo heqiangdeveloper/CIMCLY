@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cimcitech.cimcly.ApkApplication;
@@ -53,10 +54,6 @@ import okhttp3.MediaType;
  * 销售订单合同
  */
 public class OrderContractActivity extends AppCompatActivity {
-
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.my_tv)
     TextView myTv;
     @Bind(R.id.xs_tv)
@@ -65,14 +62,10 @@ public class OrderContractActivity extends AppCompatActivity {
     View myView;
     @Bind(R.id.xs_view)
     View xsView;
-    @Bind(R.id.title_ll)
-    LinearLayout titleLl;
     @Bind(R.id.search_et)
     EditText searchEt;
     @Bind(R.id.search_bt)
     Button searchBt;
-    @Bind(R.id.search_bar)
-    LinearLayout searchBar;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
@@ -83,6 +76,16 @@ public class OrderContractActivity extends AppCompatActivity {
     Button statusBt;
     @Bind(R.id.status_bt_sanjiao)
     Button statusBtSanjiao;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.who_spinner)
+    Spinner whoSpinner;
+    @Bind(R.id.who_ll)
+    LinearLayout who_Ll;
 
     private int pageNum = 1;
     private OrderContractVo orderContractVo;
@@ -100,10 +103,36 @@ public class OrderContractActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_contract);
+        setContentView(R.layout.activity_order_contract2);
         ButterKnife.bind(this);
+        initTitle();
         initViewData();
         getContStatus();
+        setSpinnerListener();
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        whoSpinner.setVisibility(View.VISIBLE);
+        titleName_Tv.setText("销售订单合同");
+        title_Ll.setVisibility(View.VISIBLE);
+        who_Ll.setVisibility(View.GONE);
+    }
+
+    public void setSpinnerListener(){
+        whoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String whos = (String) whoSpinner.getAdapter().getItem(position);
+                myData = whos.equals("我的") ? true:false;
+                updateData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     //刷新数据
@@ -124,11 +153,11 @@ public class OrderContractActivity extends AppCompatActivity {
             getSubData();
     }
 
-    @OnClick({R.id.back_rl, R.id.my_tv, R.id.xs_tv, R.id.search_bt, R.id.status_bt,
+    @OnClick({R.id.back_iv, R.id.my_tv, R.id.xs_tv, R.id.search_bt, R.id.status_bt,
             R.id.status_bt_sanjiao})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.my_tv:

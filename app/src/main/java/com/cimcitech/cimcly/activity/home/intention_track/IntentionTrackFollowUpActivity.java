@@ -6,8 +6,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +14,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cimcitech.cimcly.R;
 import com.cimcitech.cimcly.adapter.PopupWindowAdapter;
@@ -50,9 +47,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class IntentionTrackFollowUpActivity extends BaseActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.add_bt)
     Button addBt;
     @Bind(R.id.intentional_theme_et)
@@ -83,6 +77,12 @@ public class IntentionTrackFollowUpActivity extends BaseActivity {
     EditText detailedRequirementsEt;
     @Bind(R.id.intentional_number_tv)
     TextView intentionalNumberTv;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
 
     public int intValue = 0;
     private PopupWindow pop;
@@ -102,8 +102,9 @@ public class IntentionTrackFollowUpActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intention_track_follow_up);
+        setContentView(R.layout.activity_intention_track_follow_up2);
         ButterKnife.bind(this);
+        initTitle();
         mLoading.show();
         getOpportSelect();
         final Calendar ca = Calendar.getInstance();
@@ -112,6 +113,12 @@ public class IntentionTrackFollowUpActivity extends BaseActivity {
         mDay = ca.get(Calendar.DAY_OF_MONTH);
         followUpTimeTv.setText(DateTool.getSystemDate());
         infoVo = (OpportUnitInfoVo) this.getIntent().getSerializableExtra("infoVo");
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        title_Ll.setVisibility(View.GONE);
+        titleName_Tv.setText("意向跟进");
     }
 
     private void initViewData() {
@@ -138,13 +145,13 @@ public class IntentionTrackFollowUpActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.back_rl, R.id.product_category_tv,
+    @OnClick({R.id.back_iv, R.id.product_category_tv,
             R.id.product_variety_tv, R.id.product_model_tv, R.id.delivery_date_tv,
             R.id.possibility_tv, R.id.payment_method_tv, R.id.add_bt, R.id.follow_up_type_tv})
     public void onclick(View v) {
         List<String> list;
         switch (v.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.product_model_tv:
@@ -288,6 +295,7 @@ public class IntentionTrackFollowUpActivity extends BaseActivity {
                 .append(mMonth + 1).append("-")
                 .append(mDay).append(""))
                 .toString();
+        string = DateTool.transferDateStr(string);
         deliveryDateTv.setText(string);
         deliveryDateTv.setTextColor(Color.parseColor("#333333"));
 

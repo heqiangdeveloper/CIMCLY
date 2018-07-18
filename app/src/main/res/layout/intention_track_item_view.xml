@@ -10,7 +10,6 @@
         android:layout_marginBottom="10dip"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
-        android:background="@drawable/bg_layout"
         android:orientation="vertical">
 
         <LinearLayout
@@ -197,41 +196,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="0.1dip"
-            android:background="@color/alpha30"
+            android:background="@color/colorPrimary"
             android:padding="5dip" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <TextView
-                android:id="@+id/sales_order_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:padding="8dip"
-                android:text="意向报价单"
-                android:textColor="@color/black" />
-
-            <ImageView
-                android:layout_width="0.1dip"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dip"
-                android:layout_marginTop="5dip" />
-
-            <TextView
-                android:id="@+id/order_contract_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:padding="8dip"
-                android:text="销售订单合同"
-                android:textColor="@color/black" />
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

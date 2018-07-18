@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -48,9 +49,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class ContactPersonUpdateActivity extends BaseActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.client_no)
     TextView clientNo;
     @Bind(R.id.time_tv)
@@ -69,6 +67,12 @@ public class ContactPersonUpdateActivity extends BaseActivity {
     EditText addressTv;
     @Bind(R.id.add_bt)
     Button addBt;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
 
     private AreaVo areaVo;
     private ContactInfoVo contactInfoVo;
@@ -82,11 +86,18 @@ public class ContactPersonUpdateActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_person_update);
+        setContentView(R.layout.activity_contact_person_update2);
         ButterKnife.bind(this);
+        initTitle();
         contactInfoVo = (ContactInfoVo) this.getIntent().getSerializableExtra("contactInfoVo");
         getClientData();
         initViewData();
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("更新联系人信息");
+        title_Ll.setVisibility(View.GONE);
     }
 
     private void initViewData() {
@@ -109,10 +120,10 @@ public class ContactPersonUpdateActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.back_rl, R.id.client_tv, R.id.add_bt, R.id.area_tv})
+    @OnClick({R.id.back_iv, R.id.client_tv, R.id.add_bt, R.id.area_tv})
     public void onclick(View v) {
         switch (v.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.area_tv:

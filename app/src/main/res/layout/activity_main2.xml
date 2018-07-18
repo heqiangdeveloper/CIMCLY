@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/home_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:alpha="0.6"
+        android:background="@android:color/darker_gray" />
+
+    <com.chaychan.library.BottomBarLayout
+        android:id="@+id/bbl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/bottombar_padding"
+        android:paddingTop="@dimen/bottombar_padding"
+        >
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:iconNormal="@mipmap/tab_home_normal48"
+            app:iconSelected="@mipmap/tab_home_selected48"
+            app:itemText="首页"
+            app:textColorNormal="@color/tab_normal_color"
+            app:textColorSelected="@color/colorPrimary"
+            app:itemTextSize="@dimen/bottombar_item_text_size"
+            app:itemMarginTop="@dimen/bottombar_item_margin_top"
+            />
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:iconNormal="@mipmap/tab_cust_normal48"
+            app:iconSelected="@mipmap/tab_cust_selected48"
+            app:itemText="客户拜访"
+            app:textColorNormal="@color/tab_normal_color"
+            app:textColorSelected="@color/colorPrimary"
+            app:itemTextSize="@dimen/bottombar_item_text_size"
+            app:itemMarginTop="@dimen/bottombar_item_margin_top"
+            />
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:iconNormal="@mipmap/tab_intent_normal48"
+            app:iconSelected="@mipmap/tab_intent_selected48"
+            app:itemText="意向跟踪"
+            app:textColorNormal="@color/tab_normal_color"
+            app:textColorSelected="@color/colorPrimary"
+            app:itemTextSize="@dimen/bottombar_item_text_size"
+            app:itemMarginTop="@dimen/bottombar_item_margin_top"
+            />
+
+
+        <com.chaychan.library.BottomBarItem
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:iconNormal="@mipmap/tab_me_normal48"
+            app:iconSelected="@mipmap/tab_me_selected48"
+            app:itemText="我的"
+            app:textColorNormal="@color/tab_normal_color"
+            app:textColorSelected="@color/colorPrimary"
+            app:itemTextSize="@dimen/bottombar_item_text_size"
+            app:itemMarginTop="@dimen/bottombar_item_margin_top"
+            />
+
+    </com.chaychan.library.BottomBarLayout>
+</LinearLayout>

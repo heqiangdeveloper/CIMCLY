@@ -105,12 +105,12 @@ public class CustomerVisitAdapter extends RecyclerView.Adapter<RecyclerView.View
                     item.getVisitsummary() + "" : "");
 
             if(!CustomerVisitActivity.myData){
-                ((ItemViewHolder) holder).div_line.setVisibility(View.VISIBLE);
+                //((ItemViewHolder) holder).div_line.setVisibility(View.VISIBLE);
                 ((ItemViewHolder) holder).salesman_tv.setVisibility(View.VISIBLE);
                 ((ItemViewHolder) holder).salesman_tv.setText(item.getUserName() != null && !item
                         .getUserName().equals("") ? "业务员: " + item.getUserName() + "" : "业务员: ");
             }else {
-                ((ItemViewHolder) holder).div_line.setVisibility(View.GONE);
+                //((ItemViewHolder) holder).div_line.setVisibility(View.GONE);
                 ((ItemViewHolder) holder).salesman_tv.setVisibility(View.GONE);
             }
         }

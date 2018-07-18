@@ -1,6 +1,7 @@
 
 package com.cimcitech.cimcly.activity.home.depart_request;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,10 +13,13 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,33 +56,38 @@ import okhttp3.MediaType;
  * 我的客户
  */
 public class DepartRequestActivity extends AppCompatActivity {
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.apply_bt)
     Button applyBt;
-    @Bind(R.id.already_in_tv)
-    TextView already_in_Tv;
-    @Bind(R.id.already_apply_tv)
-    TextView already_apply_Tv;
-    @Bind(R.id.already_in_view)
-    View already_in_View;
-    @Bind(R.id.already_apply_view)
-    View already_apply_View;
-    @Bind(R.id.title_ll)
-    LinearLayout titleLl;
+    @Bind(R.id.my_tv)
+    TextView myTv;
+    @Bind(R.id.xs_tv)
+    TextView xsTv;
+    @Bind(R.id.my_view)
+    View myView;
+    @Bind(R.id.xs_view)
+    View xsView;
     @Bind(R.id.search_et)
     EditText searchEt;
     @Bind(R.id.search_bt)
     Button searchBt;
-    @Bind(R.id.search_bar)
-    LinearLayout searchBar;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.status_ll)
+    LinearLayout status_Ll;
+    @Bind(R.id.who_spinner)
+    Spinner whoSpinner;
+    @Bind(R.id.who_ll)
+    LinearLayout who_Ll;
 
     private int pageNum = 1;
     private Result<ListPagers<WaitInStorageInfo>> status;
@@ -90,6 +99,7 @@ public class DepartRequestActivity extends AppCompatActivity {
     private boolean isLoading;
     public static boolean isAlreadyInStorageRequset= true;
     private final int REFRESH_DATA = 1;
+    private ArrayAdapter<String> arr_adapter;
 
     private Handler mHandler = new Handler(){
         @Override
@@ -112,12 +122,57 @@ public class DepartRequestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_depart_request);
+        setContentView(R.layout.activity_depart_request2);
         ButterKnife.bind(this);
+        initTitle();
         isAlreadyInStorageRequset = true;
         initViewData();
         getData();
         applyBt.setVisibility(View.VISIBLE);
+        setSpinnerListener();
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        whoSpinner.setVisibility(View.VISIBLE);
+        titleName_Tv.setText("发车申请");
+        title_Ll.setVisibility(View.VISIBLE);
+        status_Ll.setVisibility(View.GONE);
+        who_Ll.setVisibility(View.GONE);
+
+        //myTv.setText("已入库");
+        //xsTv.setText("已申请");
+
+        //数据
+        List<String> data_list = new ArrayList<String>();
+        data_list.add("已入库");
+        data_list.add("已申请");
+
+        //适配器
+        arr_adapter= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data_list);
+        //设置样式
+        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //加载适配器
+        whoSpinner.setAdapter(arr_adapter);
+    }
+
+    public void setSpinnerListener(){
+        whoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //设置Spinner显示的字体颜色
+                TextView tv = (TextView) view;
+                tv.setTextColor(Color.WHITE);
+                String whos = (String) whoSpinner.getAdapter().getItem(position);
+                isAlreadyInStorageRequset = whos.equals("已入库") ? true:false;
+                updateData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void initViewData() {
@@ -245,24 +300,24 @@ public class DepartRequestActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.back_rl, R.id.already_in_tv, R.id.already_apply_tv, R.id.apply_bt, R.id.search_bt})
+    @OnClick({R.id.back_iv, R.id.my_view, R.id.xs_tv, R.id.apply_bt, R.id.search_bt})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
-            case R.id.already_in_tv:
+            case R.id.my_tv:
                 isAlreadyInStorageRequset = true;
                 applyBt.setVisibility(View.VISIBLE);
-                already_in_View.setVisibility(View.VISIBLE);
-                already_apply_View.setVisibility(View.INVISIBLE);
+                myView.setVisibility(View.VISIBLE);
+                xsView.setVisibility(View.INVISIBLE);
                 updateData();
                 break;
-            case R.id.already_apply_tv:
+            case R.id.xs_tv:
                 isAlreadyInStorageRequset = false;
                 applyBt.setVisibility(View.GONE);
-                already_in_View.setVisibility(View.INVISIBLE);
-                already_apply_View.setVisibility(View.VISIBLE);
+                myView.setVisibility(View.INVISIBLE);
+                xsView.setVisibility(View.VISIBLE);
                 updateData();
                 break;
             case R.id.apply_bt:

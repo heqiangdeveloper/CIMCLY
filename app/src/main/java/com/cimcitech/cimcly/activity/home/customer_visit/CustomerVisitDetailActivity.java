@@ -1,11 +1,16 @@
 package com.cimcitech.cimcly.activity.home.customer_visit;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cimcitech.cimcly.R;
@@ -23,6 +28,9 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,8 +39,21 @@ import okhttp3.MediaType;
 
 public class CustomerVisitDetailActivity extends BaseActivity {
 
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
+    @Bind(R.id.back_iv)
+    ImageView back_Iv;
+    @Bind(R.id.popup_menu_layout)
+    LinearLayout popup_menu_Layout;
+    @Bind(R.id.item_add_tv)
+    TextView item_add_Tv;
+    @Bind(R.id.item_invalid_tv)
+    TextView item_invalid_Tv;
+    @Bind(R.id.item_delete_tv)
+    TextView item_delete_Tv;
+    @Bind(R.id.item_finish_tv)
+    TextView item_finish_Tv;
+    @Bind(R.id.item_save_tv)
+    TextView item_save_Tv;
+
     @Bind(R.id.client_no_tv)
     TextView clientNoTv;
     @Bind(R.id.create_time_tv)
@@ -53,10 +74,14 @@ public class CustomerVisitDetailActivity extends BaseActivity {
     TextView checkInTv;
     @Bind(R.id.visit_summary_tv)
     EditText visitSummaryTv;
-    @Bind(R.id.save_tv)
-    Button saveTv;
-    @Bind(R.id.create_tv)
-    Button createTv;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.who_spinner)
+    Spinner whoSpinner;
 
     private int cvid;
     private CustomerVisitInfoVo info;
@@ -64,21 +89,44 @@ public class CustomerVisitDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_visit_detail);
+        setContentView(R.layout.activity_customer_visit_detail_new);
         ButterKnife.bind(this);
+        initTitle();
+        initPopupMenu();
         cvid = this.getIntent().getIntExtra("cvid", 0);
         getData();
     }
 
-    @OnClick({R.id.save_tv, R.id.create_tv, R.id.back_rl})
+    public void initTitle(){
+        more_Tv.setVisibility(View.VISIBLE);
+        whoSpinner.setVisibility(View.GONE);
+        title_Ll.setVisibility(View.GONE);
+        titleName_Tv.setText("拜访详情");
+    }
+
+    public void initPopupMenu(){
+        popup_menu_Layout.setVisibility(View.GONE);
+        item_add_Tv.setVisibility(View.VISIBLE);
+        item_save_Tv.setVisibility(View.VISIBLE);
+        item_delete_Tv.setVisibility(View.GONE);
+        item_invalid_Tv.setVisibility(View.GONE);
+        item_finish_Tv.setVisibility(View.GONE);
+
+        item_save_Tv.setText("保存拜访总结");
+        item_add_Tv.setText("新建意向订单");
+    }
+
+    @OnClick({R.id.back_iv,R.id.more_tv, R.id.item_save_tv,R.id.item_add_tv})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.create_tv:
+            case R.id.item_add_tv:
+                popup_menu_Layout.setVisibility(View.GONE);
                 Intent intent = new Intent(CustomerVisitDetailActivity.this, IntentionTrackAddActivity.class);
                 intent.putExtra("CustomerVisitInfo", info);
                 startActivity(intent);
                 break;
-            case R.id.save_tv:
+            case R.id.item_save_tv:
+                popup_menu_Layout.setVisibility(View.GONE);
                 if (visitSummaryTv.getText().toString().trim().equals("")) {
                     ToastUtil.showToast("请输入拜访总结");
                 } else {
@@ -86,10 +134,31 @@ public class CustomerVisitDetailActivity extends BaseActivity {
                     updateData();
                 }
                 break;
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
+            case R.id.more_tv:
+                popup_menu_Layout.setVisibility(View.VISIBLE);
+                break;
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            int x = (int) ev.getX();
+            int y = (int) ev.getY();
+
+            if (null != popup_menu_Layout && popup_menu_Layout.getVisibility() == View.VISIBLE) {
+                Rect hitRect = new Rect();
+                popup_menu_Layout.getGlobalVisibleRect(hitRect);
+                if (!hitRect.contains(x, y)) {
+                    popup_menu_Layout.setVisibility(View.GONE);
+                    return true;
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     public void initViewData() {
@@ -98,8 +167,8 @@ public class CustomerVisitDetailActivity extends BaseActivity {
         clientNameTv.setText(info.getData().getCustname());
         contactPersonTv.setText(info.getData().getContpersonname());
         mobileTv.setText(info.getData().getCustphone());
-        visitTimeTv.setText(info.getData().getVisitbegintime());
-        visitTime2Tv.setText(info.getData().getVisitendtime());
+        visitTimeTv.setText(DateTool.transferDateStr(info.getData().getVisitbegintime()));
+        visitTime2Tv.setText(DateTool.transferDateStr(info.getData().getVisitendtime()));
         clientAddressTv.setText(info.getData().getCustaddress());
         checkInTv.setText(info.getData().getSigninaddress());
         visitSummaryTv.setText(info.getData().getVisitsummary());

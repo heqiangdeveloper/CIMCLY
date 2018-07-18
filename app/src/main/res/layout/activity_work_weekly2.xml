@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/activity_work_weekly_title"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/back_rl"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/ww_top_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="@dimen/work_weekly_title_padding_bottom"
+            android:paddingBottom="@dimen/work_weekly_title_padding_bottom"
+            android:background="@color/white">
+            <TextView
+                android:id="@+id/ww_top_category_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/work_weekly_title_text_size"
+                android:text="今天"/>
+            <TextView
+                android:id="@+id/ww_top_category_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginLeft="@dimen/work_weekly_title_label_margin_left"
+                android:textSize="@dimen/work_weekly_title_text_size"
+                android:text="∨"/>
+        </LinearLayout>
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/recycler_view_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/title_ll"
+            android:layout_marginBottom="2dip"
+            android:layout_marginTop="5dip"
+            android:background="@android:color/white"
+            android:visibility="visible">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+    <ImageButton
+        android:id="@+id/add_ib"
+        android:src="@mipmap/icon_contact_add"
+        android:layout_gravity="bottom|right"
+        android:background="@color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content"/>
+</android.support.design.widget.CoordinatorLayout>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,13 +26,6 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 public class ContactPersonDetailActivity extends AppCompatActivity {
-
-    @Bind(R.id.title)
-    TextView title;
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
-    @Bind(R.id.add_bt)
-    Button addBt;
     @Bind(R.id.user_name_tv)
     TextView userNameTv;
     @Bind(R.id.mobile_tv)
@@ -48,6 +42,12 @@ public class ContactPersonDetailActivity extends AppCompatActivity {
     TextView customerNoTv;
     @Bind(R.id.update_bt)
     Button updateBt;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
 
     private long contPersonId;
     private ContactInfoVo contactInfoVo;
@@ -56,12 +56,18 @@ public class ContactPersonDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_person_detail);
+        setContentView(R.layout.activity_contact_person_detail2);
         ButterKnife.bind(this);
+        initTitle();
         contPersonId = this.getIntent().getLongExtra("contPersonId", 0);
         getData();
     }
 
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("联系人详情");
+        title_Ll.setVisibility(View.GONE);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -72,11 +78,11 @@ public class ContactPersonDetailActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick({R.id.back_rl, R.id.add_bt, R.id.update_bt})
+    @OnClick({R.id.back_iv, R.id.add_bt, R.id.update_bt})
     public void onclick(View view) {
         Intent intent;
         switch (view.getId()) {
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.update_bt:

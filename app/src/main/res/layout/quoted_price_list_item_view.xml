@@ -10,7 +10,6 @@
         android:layout_marginBottom="10dip"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
-        android:background="@drawable/bg_layout"
         android:orientation="vertical">
 
         <LinearLayout
@@ -141,6 +140,10 @@
             android:text="业务员："
             android:textColor="@color/black_3"
             android:textSize="14sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dip"
+            android:background="@color/colorPrimary" />
     </LinearLayout>
 
 </LinearLayout>

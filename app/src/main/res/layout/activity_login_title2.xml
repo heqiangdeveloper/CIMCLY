@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    android:fitsSystemWindows="true">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:contentInsetEnd="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetStart="0dp"
+        app:navigationIcon="@null"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+        <LinearLayout
+               android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 android:background="@mipmap/login_bg"
+                android:orientation="vertical"
+                 android:padding="20dp">
+
+            <!--logo-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dip"
+                android:src="@mipmap/login_app_icon" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/welcome_tv1"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello! Tony"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/welcome_tv2"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Welcome Back"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dip"
+                android:layout_marginLeft="0dip"
+                android:layout_marginRight="0dip"
+                android:layout_marginTop="50dip"
+                android:layout_marginBottom="5dp"
+                android:background="@color/transparent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dip"
+                    android:src="@mipmap/login_account_icon" />
+
+                <EditText
+                    android:id="@+id/user_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/transparent"
+                    android:ellipsize="end"
+                    android:textColor="@color/colorPrimary"
+                    android:hint="请输入用户名"
+                    android:textColorHint="@color/colorPrimary"
+                    android:maxLines="1"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/clear_name_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dip"
+                    android:src="@mipmap/icon_clear_edittext" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dip"
+                android:layout_marginLeft="0dip"
+                android:layout_marginRight="0dip"
+                android:layout_marginTop="5dip"
+                android:background="@color/transparent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dip"
+                    android:src="@mipmap/login_password_icon" />
+
+                <EditText
+                    android:id="@+id/password_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:hint="请输入密码"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/clear_password_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dip"
+                    android:src="@mipmap/icon_clear_edittext" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"/>
+
+            <Button
+                android:id="@+id/login_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dip"
+                android:layout_marginRight="0dip"
+                android:layout_marginTop="25dip"
+                android:background="@drawable/shape_login_button_off"
+                android:text="登录"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dip"
+                android:layout_marginRight="0dip"
+                android:layout_marginTop="10dip"
+                android:background="@color/transparent">
+                <TextView
+                    android:id="@+id/forget_psd_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="忘记密码"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+</android.support.design.widget.AppBarLayout>

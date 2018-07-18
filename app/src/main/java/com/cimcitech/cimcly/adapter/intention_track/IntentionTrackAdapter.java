@@ -135,8 +135,6 @@ public class IntentionTrackAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 product_num_tv,
                 deliver_time_tv,
                 product_model_tv,
-                sales_order_tv,
-                order_contract_tv,
                 user_name_tv;
 
         public ItemViewHolder(View view) {
@@ -150,8 +148,8 @@ public class IntentionTrackAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             product_num_tv = view.findViewById(R.id.product_num_tv);
             deliver_time_tv = view.findViewById(R.id.deliver_time_tv);
             product_model_tv = view.findViewById(R.id.product_model_tv);
-            sales_order_tv = view.findViewById(R.id.sales_order_tv);
-            order_contract_tv = view.findViewById(R.id.order_contract_tv);
+            //sales_order_tv = view.findViewById(R.id.sales_order_tv);
+            //order_contract_tv = view.findViewById(R.id.order_contract_tv);
             user_name_tv = view.findViewById(R.id.user_name_tv);
         }
     }

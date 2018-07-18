@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -52,11 +53,6 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class MyClientUpdateActivity extends BaseActivity {
-
-    @Bind(R.id.title)
-    TextView title;
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
     @Bind(R.id.contact_person_tv)
     TextView contactPersonTv;
     @Bind(R.id.visit_tv)
@@ -65,8 +61,6 @@ public class MyClientUpdateActivity extends BaseActivity {
     TextView intentionTv;
     @Bind(R.id.save_tv)
     TextView saveTv;
-    @Bind(R.id.update_ll)
-    LinearLayout updateLl;
     @Bind(R.id.system_date_tv)
     TextView systemDateTv;
     @Bind(R.id.customer_category_tv)
@@ -95,6 +89,13 @@ public class MyClientUpdateActivity extends BaseActivity {
     EditText invoiceTv;
     @Bind(R.id.beizhu_et)
     EditText beizhuEt;
+
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
 
     //modidied by qianghe on 2017/10/11 begin
     @Bind(R.id.province_Linear)
@@ -140,17 +141,24 @@ public class MyClientUpdateActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_client_update);
+        setContentView(R.layout.activity_my_client_update2);
         ButterKnife.bind(this);
+        initTitle();
         systemDateTv.setText(DateTool.getSystemDate());
         custid = this.getIntent().getLongExtra("custid", 0);
         mLoading.show();
         getData();
     }
 
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        titleName_Tv.setText("客户信息详情");
+        title_Ll.setVisibility(View.GONE);
+    }
+
     @OnClick({R.id.save_tv, R.id.contact_person_tv, R.id.visit_tv, R.id.intention_tv,
             R.id.customer_category_tv, R.id.country_tv, R.id.province_tv, R.id.city_tv,
-            R.id.taxes_tv, R.id.back_rl})
+            R.id.taxes_tv, R.id.back_iv})
     public void onclick(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -222,7 +230,7 @@ public class MyClientUpdateActivity extends BaseActivity {
                     pop.showAtLocation(view, Gravity.CENTER, 0, 0);
                 }
                 break;
-            case R.id.back_rl:
+            case R.id.back_iv:
                 finish();
                 break;
             case R.id.contact_person_tv:

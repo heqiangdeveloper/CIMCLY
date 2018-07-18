@@ -20,6 +20,19 @@ public class DateTool {
         return formatter.format(curDate);
     }
 
+    public static String transferDateStr(String string){
+        //下面将“2018-8-8”格式时间，转化为标准日期“2018-08-06”
+        SimpleDateFormat foramt = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try{
+            date = foramt.parse(string);
+        }catch (Exception e){
+
+        }
+        string = foramt.format(date);
+        return string;
+    }
+
     /**
      * long类型的日期时间值转换成yyyy/MM/dd/ HH:mm:ss格式
      * 精确到时分秒

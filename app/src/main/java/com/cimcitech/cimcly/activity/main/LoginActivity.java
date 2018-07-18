@@ -2,9 +2,13 @@ package com.cimcitech.cimcly.activity.main;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,8 +44,63 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        userNameTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(userNameTv.getText().toString().trim().length() != 0 &&
+                        passwordTv.getText().toString().trim().length() != 0){
+                    loginBtnOn();
+                }else{
+                    loginBtnOff();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        passwordTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(userNameTv.getText().toString().trim().length() != 0 &&
+                        passwordTv.getText().toString().trim().length() != 0){
+                    loginBtnOn();
+                }else{
+                    loginBtnOff();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         sp = this.getSharedPreferences(Config.KEY_LOGIN_AUTO, MODE_PRIVATE);//如果存在则打开它，否则创建新的Preferences
         getUserInfo();
+    }
+
+    public void loginBtnOn(){
+        loginBt.setBackgroundResource(R.drawable.shape_login_button_on);
+        loginBt.setClickable(true);
+    }
+
+    public void loginBtnOff(){
+        loginBt.setBackgroundResource(R.drawable.shape_login_button_off);
+        loginBt.setClickable(false);
     }
 
     @OnClick({R.id.clear_name_iv, R.id.clear_password_iv})

@@ -10,7 +10,6 @@
         android:layout_marginBottom="10dip"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
-        android:background="@drawable/bg_layout"
         android:orientation="vertical">
 
         <TextView
@@ -214,6 +213,10 @@
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dip"
+            android:background="@color/colorPrimary" />
     </LinearLayout>
 
 </LinearLayout>

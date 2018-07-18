@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cimcitech.cimcly.ApkApplication;
@@ -44,6 +45,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.MediaType;
 
@@ -53,12 +55,8 @@ import okhttp3.MediaType;
 
 
 public class IntentionTrackFragment extends Fragment implements View.OnClickListener {
-
-
-    @Bind(R.id.back_rl)
-    RelativeLayout backRl;
-    @Bind(R.id.add_bt)
-    Button addBt;
+    @Bind(R.id.back_iv)
+    ImageView back_Iv;
     @Bind(R.id.my_tv)
     TextView myTv;
     @Bind(R.id.xs_tv)
@@ -67,35 +65,28 @@ public class IntentionTrackFragment extends Fragment implements View.OnClickList
     View myView;
     @Bind(R.id.xs_view)
     View xsView;
-    @Bind(R.id.order_amount_total_tv)
-    TextView orderAmountTotalTv;
-    @Bind(R.id.order_count_tv)
-    TextView orderCountTv;
-    @Bind(R.id.amount_money_tv)
-    LinearLayout amountMoneyTv;
-    @Bind(R.id.opport_amount_total_count_tv)
-    TextView opportAmountTotalCountTv;
-    @Bind(R.id.more_tv)
-    TextView moreTv;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
-    @Bind(R.id.title_ll)
-
-    LinearLayout titleLl;
     @Bind(R.id.status_bt)
     Button statusBt;
     @Bind(R.id.search_et)
     EditText searchEt;
     @Bind(R.id.search_bt)
     Button searchBt;
-    @Bind(R.id.search_bar)
-    LinearLayout searchBar;
-    @Bind(R.id.back_img)
-    ImageView back_Img;
+    @Bind(R.id.more_tv)
+    TextView more_Tv;
+    @Bind(R.id.title_ll)
+    LinearLayout title_Ll;
+    @Bind(R.id.titleName_tv)
+    TextView titleName_Tv;
+    @Bind(R.id.who_spinner)
+    Spinner whoSpinner;
+    @Bind(R.id.who_ll)
+    LinearLayout who_Ll;
 
     private PopupWindow pop;
     private int pageNum = 1;
@@ -106,21 +97,46 @@ public class IntentionTrackFragment extends Fragment implements View.OnClickList
     private Handler handler = new Handler();
     private final int INIT_DATA = 1003;
     private OpportUnitVo opportUnitVo;
-    private boolean myDate = true;
+    private boolean myData = true;
     private GetCurrStageSelect getCurrStageSelect;
     private String quotestatus;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_intention_track, container, false);
+        View view = inflater.inflate(R.layout.activity_intention_track2, container, false);
         ButterKnife.bind(this, view);
-        //initHandler();
-        back_Img.setVisibility(View.INVISIBLE);
+        initTitle();
+        back_Iv.setVisibility(View.INVISIBLE);
         initViewData();
         getData();
         getCurrStageSelect();
+        setSpinnerListener();
         return view;
+    }
+
+    public void initTitle(){
+        more_Tv.setVisibility(View.GONE);
+        whoSpinner.setVisibility(View.VISIBLE);
+        title_Ll.setVisibility(View.VISIBLE);
+        titleName_Tv.setText("意向跟踪");
+        who_Ll.setVisibility(View.GONE);
+    }
+
+    public void setSpinnerListener(){
+        whoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String whos = (String) whoSpinner.getAdapter().getItem(position);
+                myData = whos.equals("我的") ? true:false;
+                updateData();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     //刷新数据
@@ -136,7 +152,7 @@ public class IntentionTrackFragment extends Fragment implements View.OnClickList
         adapter.notifyDataSetChanged();
         this.data.clear();
         pageNum = 1;
-        if (myDate)
+        if (myData)
             getData(); //获取数据
         else
             getSubData();
@@ -151,26 +167,23 @@ public class IntentionTrackFragment extends Fragment implements View.OnClickList
         }
     }
 
-    @Override
+    @OnClick({R.id.add_ib,R.id.my_tv,R.id.xs_tv,R.id.status_bt,R.id.search_bt})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.my_tv:
-                myDate = true;
+                myData = true;
                 myView.setVisibility(View.VISIBLE);
                 xsView.setVisibility(View.INVISIBLE);
                 updateData();
                 break;
             case R.id.xs_tv:
-                myDate = false;
+                myData = false;
                 myView.setVisibility(View.INVISIBLE);
                 xsView.setVisibility(View.VISIBLE);
                 updateData();
                 break;
-            case R.id.add_bt:
+            case R.id.add_ib:
                 startActivity(new Intent(getActivity(), IntentionTrackAddActivity.class));
-                break;
-            case R.id.back_rl:
-                //getActivity().finish();
                 break;
             case R.id.status_bt:
                 List<String> list = new ArrayList<>();
@@ -227,12 +240,6 @@ public class IntentionTrackFragment extends Fragment implements View.OnClickList
     }
 
     public void initViewData() {
-        myTv.setOnClickListener(this);
-        xsTv.setOnClickListener(this);
-        addBt.setOnClickListener(this);
-        backRl.setOnClickListener(this);
-        statusBt.setOnClickListener(this);
-        searchBt.setOnClickListener(this);
         //防止切换底部的Fragment时，出现recyclerView内容的重复加载
         if(null != data || data.size() != 0){
             data.clear();
@@ -257,7 +264,7 @@ public class IntentionTrackFragment extends Fragment implements View.OnClickList
                         data.clear(); //清除数据
                         pageNum = 1;
                         isLoading = false;
-                        if (myDate)
+                        if (myData)
                             getData(); //获取数据
                         else
                             getSubData();
@@ -303,7 +310,7 @@ public class IntentionTrackFragment extends Fragment implements View.OnClickList
                                 //上拉加载
                                 if (opportUnitVo.getData().getPageInfo().isHasNextPage()) {
                                     pageNum++;
-                                    if (myDate)
+                                    if (myData)
                                         getData();//添加数据
                                     else
                                         getSubData();
