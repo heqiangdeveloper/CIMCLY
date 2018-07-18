@@ -3,7 +3,6 @@ package com.cimcitech.cimcly.activity.home.quoted_price;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.textclassifier.TextClassification;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -57,6 +55,12 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class QuotedPriceDetailActivity extends BaseActivity {
+
+
+    @Bind(R.id.back_rl)
+    ImageView backRl;
+    @Bind(R.id.title)
+    TextView title;
     @Bind(R.id.cust_name_tv)
     TextView custNameTv;
     @Bind(R.id.quote_stand_price_tv)
@@ -97,24 +101,12 @@ public class QuotedPriceDetailActivity extends BaseActivity {
     ListView listContent3;
     @Bind(R.id.listContent4)
     ListView listContent4;
-    @Bind(R.id.more_tv)
-    TextView more_Tv;
-    @Bind(R.id.titleName_tv)
-    TextView titleName_Tv;
-    @Bind(R.id.title_ll)
-    LinearLayout title_Ll;
-    @Bind(R.id.popup_menu_layout)
-    LinearLayout popup_menu_Layout;
-    @Bind(R.id.item_add_tv)
-    TextView item_add_Tv;
-    @Bind(R.id.item_invalid_tv)
-    TextView item_invalid_Tv;
-    @Bind(R.id.item_delete_tv)
-    TextView item_delete_Tv;
-    @Bind(R.id.item_finish_tv)
-    TextView item_finish_Tv;
-    @Bind(R.id.item_save_tv)
-    TextView item_save_Tv;
+    @Bind(R.id.save_bt)
+    Button saveBt;
+    @Bind(R.id.submit_bt)
+    Button submitBt;
+    @Bind(R.id.bottom_layout)
+    LinearLayout bottomLayout;
 
     private boolean isClicked = false;
 
@@ -178,11 +170,8 @@ public class QuotedPriceDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quoted_price_detail2);
+        setContentView(R.layout.activity_quoted_price_detail);
         ButterKnife.bind(this);
-        initTitle();
-        initPopupMenu();
-
         quoteid = this.getIntent().getIntExtra("quoteid", 0);
         infoVo = (OpportUnitInfoVo) this.getIntent().getSerializableExtra("infoVo");
         protocolPriceTv.setFocusable(false);
@@ -195,26 +184,8 @@ public class QuotedPriceDetailActivity extends BaseActivity {
         getData();
     }
 
-    public void initTitle(){
-        more_Tv.setVisibility(View.GONE);
-        titleName_Tv.setText("报价单详情");
-        title_Ll.setVisibility(View.GONE);
-    }
-
-    public void initPopupMenu(){
-        popup_menu_Layout.setVisibility(View.GONE);
-        item_add_Tv.setVisibility(View.GONE);
-        item_save_Tv.setVisibility(View.VISIBLE);
-        item_delete_Tv.setVisibility(View.GONE);
-        item_invalid_Tv.setVisibility(View.GONE);
-        item_finish_Tv.setVisibility(View.VISIBLE);
-
-        item_save_Tv.setText("保存");
-        item_finish_Tv.setText("提交");
-    }
-
-    @OnClick({R.id.textView1, R.id.textView2, R.id.textView3, R.id.textView4,R.id.more_tv,
-            R.id.back_iv, R.id.isbring_chassis_tv, R.id.item_save_tv, R.id.item_finish_tv})
+    @OnClick({R.id.textView1, R.id.textView2, R.id.textView3, R.id.textView4,
+            R.id.back_rl, R.id.isbring_chassis_tv, R.id.save_bt, R.id.submit_bt})
     public void onclick(View view) {
         switch (view.getId()) {
             case R.id.textView1:
@@ -233,7 +204,7 @@ public class QuotedPriceDetailActivity extends BaseActivity {
                 setImageViewShow(imageView4);
                 setListViewShow(listContent4);
                 break;
-            case R.id.back_iv:
+            case R.id.back_rl:
                 finish();
                 break;
             case R.id.isbring_chassis_tv:
@@ -251,15 +222,25 @@ public class QuotedPriceDetailActivity extends BaseActivity {
                         }
                     }
                 break;
-            case R.id.item_save_tv:
-                popup_menu_Layout.setVisibility(View.GONE);
+            case R.id.save_bt:
                 if (!inputAndSelector()) return;
                 isSubmit = false;
                 mLoading.show();
                 updateData();
                 break;
-            case R.id.item_finish_tv:
-                popup_menu_Layout.setVisibility(View.GONE);
+            case R.id.submit_bt:
+                Log.d("TAg","");
+                /*if(!isClicked){
+                    isClicked = true;
+                    if (!inputAndSelector()) {
+                        isClicked = false;
+                        return;
+                    }
+                    isSubmit = true;
+                    mLoading.show();
+                    updateData();
+                }*/
+
                 if (!inputAndSelector()) {
                     return;
                 }
@@ -268,30 +249,8 @@ public class QuotedPriceDetailActivity extends BaseActivity {
                 sendMsg(submitData);
                 updateData();
                 break;
-            case R.id.more_tv:
-                popup_menu_Layout.setVisibility(View.VISIBLE);
-                break;
         }
     }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            int x = (int) ev.getX();
-            int y = (int) ev.getY();
-
-            if (null != popup_menu_Layout && popup_menu_Layout.getVisibility() == View.VISIBLE) {
-                Rect hitRect = new Rect();
-                popup_menu_Layout.getGlobalVisibleRect(hitRect);
-                if (!hitRect.contains(x, y)) {
-                    popup_menu_Layout.setVisibility(View.GONE);
-                    return true;
-                }
-            }
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
     public void sendMsg(int flag){
         Message msg = new Message();
         msg.what = flag;
@@ -637,7 +596,7 @@ public class QuotedPriceDetailActivity extends BaseActivity {
 
     //默认可以编辑保存 执行此方法禁用点击按钮输入框等...
     public void showView() {
-        more_Tv.setVisibility(View.VISIBLE);
+        bottomLayout.setVisibility(View.VISIBLE);
         protocolPriceTv.setFocusable(true);
         protocolPriceTv.setFocusableInTouchMode(true);
         chassisModelTv.setFocusable(true);

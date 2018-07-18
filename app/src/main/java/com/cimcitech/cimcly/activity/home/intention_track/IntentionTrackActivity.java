@@ -19,12 +19,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cimcitech.cimcly.ApkApplication;
@@ -53,8 +51,10 @@ import okhttp3.MediaType;
 public class IntentionTrackActivity extends AppCompatActivity implements View
         .OnClickListener {
 
-    @Bind(R.id.back_iv)
-    ImageView back_Iv;
+    @Bind(R.id.back_rl)
+    RelativeLayout backRl;
+    @Bind(R.id.add_bt)
+    Button addBt;
     @Bind(R.id.my_tv)
     TextView myTv;
     @Bind(R.id.xs_tv)
@@ -71,6 +71,18 @@ public class IntentionTrackActivity extends AppCompatActivity implements View
     EditText searchEt;
     @Bind(R.id.search_bt)
     Button searchBt;
+    @Bind(R.id.search_bar)
+    LinearLayout searchBar;
+    @Bind(R.id.order_amount_total_tv)
+    TextView orderAmountTotalTv;
+    @Bind(R.id.order_count_tv)
+    TextView orderCountTv;
+    @Bind(R.id.amount_money_tv)
+    LinearLayout amountMoneyTv;
+    @Bind(R.id.opport_amount_total_count_tv)
+    TextView opportAmountTotalCountTv;
+    @Bind(R.id.more_tv)
+    TextView moreTv;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
@@ -78,19 +90,8 @@ public class IntentionTrackActivity extends AppCompatActivity implements View
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
     @Bind(R.id.title_ll)
+
     LinearLayout titleLl;
-    @Bind(R.id.more_tv)
-    TextView more_Tv;
-    @Bind(R.id.status_ll)
-    LinearLayout status_Ll;
-    @Bind(R.id.titleName_tv)
-    TextView titleName_Tv;
-    @Bind(R.id.add_ib)
-    ImageView add_Ib;
-    @Bind(R.id.who_spinner)
-    Spinner whoSpinner;
-    @Bind(R.id.who_ll)
-    LinearLayout who_Ll;
     private PopupWindow pop;
     private int pageNum = 1;
     private IntentionTrackAdapter adapter;
@@ -100,45 +101,20 @@ public class IntentionTrackActivity extends AppCompatActivity implements View
     private Handler handler = new Handler();
     private final int INIT_DATA = 1003;
     private OpportUnitVo opportUnitVo;
-    private boolean myData = true;
+    private boolean myDate = true;
     private GetCurrStageSelect getCurrStageSelect;
     private String quotestatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intention_track2);
+        setContentView(R.layout.activity_intention_track);
         ButterKnife.bind(this);
-        initTitle();
         initViewData();
         getCurrStageSelect();
-        setSpinnerListener();
     }
 
-    public void setSpinnerListener(){
-        whoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String whos = (String) whoSpinner.getAdapter().getItem(position);
-                myData = whos.equals("我的") ? true:false;
-                updateData();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
-    public void initTitle(){
-        more_Tv.setVisibility(View.GONE);
-        whoSpinner.setVisibility(View.VISIBLE);
-        titleName_Tv.setText("意向跟踪");
-        titleLl.setVisibility(View.VISIBLE);
-        who_Ll.setVisibility(View.GONE);
-        status_Ll.setVisibility(View.VISIBLE);
-    }
 
     //刷新数据
     private void updateData() {
@@ -152,7 +128,7 @@ public class IntentionTrackActivity extends AppCompatActivity implements View
         adapter.notifyDataSetChanged();
         this.data.clear();
         pageNum = 1;
-        if (myData)
+        if (myDate)
             getData(); //获取数据
         else
             getSubData();
@@ -167,26 +143,26 @@ public class IntentionTrackActivity extends AppCompatActivity implements View
         }
     }
 
-    @OnClick({R.id.my_tv,R.id.xs_tv,R.id.add_ib,R.id.back_iv,R.id.status_bt,R.id
+    @OnClick({R.id.my_tv,R.id.xs_tv,R.id.add_bt,R.id.back_rl,R.id.status_bt,R.id
             .status_bt_sanjiao,R.id.search_bt})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.my_tv:
-                myData = true;
+                myDate = true;
                 myView.setVisibility(View.VISIBLE);
                 xsView.setVisibility(View.INVISIBLE);
                 updateData();
                 break;
             case R.id.xs_tv:
-                myData = false;
+                myDate = false;
                 myView.setVisibility(View.INVISIBLE);
                 xsView.setVisibility(View.VISIBLE);
                 updateData();
                 break;
-            case R.id.add_ib:
+            case R.id.add_bt:
                 startActivity(new Intent(IntentionTrackActivity.this, IntentionTrackAddActivity.class));
                 break;
-            case R.id.back_iv:
+            case R.id.back_rl:
                 finish();
                 break;
             case R.id.status_bt:
@@ -247,8 +223,8 @@ public class IntentionTrackActivity extends AppCompatActivity implements View
     public void initViewData() {
         myTv.setOnClickListener(this);
         xsTv.setOnClickListener(this);
-        add_Ib.setOnClickListener(this);
-        back_Iv.setOnClickListener(this);
+        addBt.setOnClickListener(this);
+        backRl.setOnClickListener(this);
         statusBt.setOnClickListener(this);
         searchBt.setOnClickListener(this);
         adapter = new IntentionTrackAdapter(IntentionTrackActivity.this, data);
@@ -270,7 +246,7 @@ public class IntentionTrackActivity extends AppCompatActivity implements View
                         data.clear(); //清除数据
                         pageNum = 1;
                         isLoading = false;
-                        if (myData)
+                        if (myDate)
                             getData(); //获取数据
                         else
                             getSubData();
@@ -315,7 +291,7 @@ public class IntentionTrackActivity extends AppCompatActivity implements View
                                 //上拉加载
                                 if (opportUnitVo.getData().getPageInfo().isHasNextPage()) {
                                     pageNum++;
-                                    if (myData)
+                                    if (myDate)
                                         getData();//添加数据
                                     else
                                         getSubData();

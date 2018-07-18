@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,12 +25,18 @@ import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
 public class QRCodeWriteTestActivity extends AppCompatActivity{
+
+    @Bind(R.id.back_rl)
+    RelativeLayout backRl;
     @Bind(R.id.year_spinner)
     Spinner year_Spinner;
     @Bind(R.id.partb_et)
@@ -40,13 +45,6 @@ public class QRCodeWriteTestActivity extends AppCompatActivity{
     TextView partc_Tv;
     @Bind(R.id.partd_et)
     EditText partd_Et;
-
-    @Bind(R.id.more_tv)
-    TextView more_Tv;
-    @Bind(R.id.title_ll)
-    LinearLayout title_Ll;
-    @Bind(R.id.titleName_tv)
-    TextView titleName_Tv;
 
     private final int PERMISSION_CODE = 1;
     private final int CAMERA_CODE = 2;
@@ -61,18 +59,11 @@ public class QRCodeWriteTestActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_write_test2);
+        setContentView(R.layout.activity_write_test);
         ButterKnife.bind(this);
-        initTitle();
         initView();
         getYear();
         partb_Et.setTransformationMethod(new AutoCaseTransformationMethod());
-    }
-
-    public void initTitle(){
-        more_Tv.setVisibility(View.GONE);
-        title_Ll.setVisibility(View.GONE);
-        titleName_Tv.setText("手工填写车工号");
     }
 
     //初始化界面
@@ -95,10 +86,10 @@ public class QRCodeWriteTestActivity extends AppCompatActivity{
         });
     }
 
-    @OnClick({R.id.back_iv,R.id.start_test_bt})
+    @OnClick({R.id.back_rl,R.id.start_test_bt})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_iv:
+            case R.id.back_rl:
                 finish();
                 break;
             case R.id.start_test_bt:

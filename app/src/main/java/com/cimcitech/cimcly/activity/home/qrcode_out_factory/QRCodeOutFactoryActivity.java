@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,7 +28,6 @@ import com.google.gson.Gson;
 import com.google.zxing.client.android.CaptureActivity2;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,7 +126,7 @@ public class QRCodeOutFactoryActivity extends AppCompatActivity{
         if (requestCode == CAMERA_CODE && resultCode == RESULT_OK) {
             //Bundle bundle = data.getExtras();
             //String scanResult = bundle.getString("result");
-            String scanResult = data.getStringExtra("CaptureIsbn");
+            String scanResult = data.getStringExtra("CaptureIsbn");//这里一定要使用“CaptureIsbn”
             Log.d("hqtest","s is: " + scanResult);
             //二维码结果
             if(scanResult.length() > 29 && scanResult.substring(0,29).equals(StartStr)){
@@ -185,12 +183,7 @@ public class QRCodeOutFactoryActivity extends AppCompatActivity{
                                     warn_Tv.setVisibility(View.GONE);
                                     result_Tv.setVisibility(View.GONE);
                                     out_factory_Btn.setVisibility(View.GONE);
-                                    if(RequestFeedbackStr.getMsg().trim().length() == 0){
-                                        Toast.makeText(QRCodeOutFactoryActivity.this,"出厂成功",Toast.LENGTH_SHORT).show();
-                                    }else{
-                                        Toast.makeText(QRCodeOutFactoryActivity.this,RequestFeedbackStr
-                                                .getMsg(),Toast.LENGTH_SHORT).show();
-                                    }
+                                    Toast.makeText(QRCodeOutFactoryActivity.this,"出厂成功",Toast.LENGTH_SHORT).show();
                                     vehicleno = "";
                                 }else {
                                     warn_Tv.setVisibility(View.VISIBLE);

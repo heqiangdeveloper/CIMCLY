@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CimcLy.iml" filepath="$PROJECT_DIR$/CimcLy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CimcLy-8683a344e4d6df55f3a8c29862e75db080435d85.iml" filepath="$PROJECT_DIR$/CimcLy-8683a344e4d6df55f3a8c29862e75db080435d85.iml" />
       <module fileurl="file://$PROJECT_DIR$/CimcLy-master.iml" filepath="$PROJECT_DIR$/CimcLy-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LibZxing/LibZxing.iml" filepath="$PROJECT_DIR$/LibZxing/LibZxing.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

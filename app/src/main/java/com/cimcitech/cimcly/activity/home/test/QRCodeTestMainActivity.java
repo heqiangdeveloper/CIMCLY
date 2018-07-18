@@ -16,14 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cimcitech.cimcly.R;
-import com.cimcitech.cimcly.bean.test.VehicleInfoVo;
-import com.cimcitech.cimcly.utils.Config;
-import com.google.gson.Gson;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

@@ -9,9 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.cimcitech.cimcly.R;
 import com.cimcitech.cimcly.adapter.payment.PaymentDetailAdapter;
@@ -30,18 +28,16 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 public class PaymentDetailActivity extends AppCompatActivity {
+
+
+    @Bind(R.id.back_rl)
+    RelativeLayout backRl;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
-    @Bind(R.id.title_ll)
-    LinearLayout title_Ll;
-    @Bind(R.id.more_tv)
-    TextView more_Tv;
-    @Bind(R.id.titleName_tv)
-    TextView titleName_Tv;
 
     private long sorderId;
     private int pageNum = 1;
@@ -56,25 +52,18 @@ public class PaymentDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment_detail2);
+        setContentView(R.layout.activity_payment_detail);
         ButterKnife.bind(this);
-        initTitle();
         sorderId = this.getIntent().getLongExtra("sorderid", 0);
         Log.d("heqpd","sortid is：" + sorderId);
         initViewData();
         getData();
     }
 
-    public void initTitle(){
-        more_Tv.setVisibility(View.GONE);
-        titleName_Tv.setText("回款跟踪详情");
-        title_Ll.setVisibility(View.GONE);
-    }
-
-    @OnClick({R.id.back_iv})
+    @OnClick({R.id.back_rl})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_iv:
+            case R.id.back_rl:
                 finish();
                 break;
         }

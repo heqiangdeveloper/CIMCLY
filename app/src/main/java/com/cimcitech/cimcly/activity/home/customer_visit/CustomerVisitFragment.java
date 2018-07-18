@@ -14,14 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cimcitech.cimcly.ApkApplication;
@@ -53,6 +50,11 @@ import okhttp3.MediaType;
  */
 
 public class CustomerVisitFragment extends Fragment {
+
+    @Bind(R.id.back_rl)
+    RelativeLayout backRl;
+    @Bind(R.id.add_bt)
+    Button addBt;
     @Bind(R.id.my_tv)
     TextView myTv;
     @Bind(R.id.xs_tv)
@@ -65,6 +67,8 @@ public class CustomerVisitFragment extends Fragment {
     EditText searchEt;
     @Bind(R.id.search_bt)
     Button searchBt;
+    @Bind(R.id.search_bar)
+    LinearLayout searchBar;
     @Bind(R.id.title_ll)
     LinearLayout titleLl;
     @Bind(R.id.recyclerView)
@@ -73,21 +77,8 @@ public class CustomerVisitFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view_layout)
     CoordinatorLayout recyclerViewLayout;
-
-    @Bind(R.id.more_tv)
-    TextView more_Tv;
-    @Bind(R.id.titleName_tv)
-    TextView titleName_Tv;
-    @Bind(R.id.search_ll)
-    LinearLayout search_Ll;
-    @Bind(R.id.status_ll)
-    LinearLayout status_Ll;
-    @Bind(R.id.back_iv)
-    ImageView back_Iv;
-    @Bind(R.id.who_spinner)
-    Spinner whoSpinner;
-    @Bind(R.id.who_ll)
-    LinearLayout who_Ll;
+    @Bind(R.id.back_img)
+    ImageView back_Img;
 
     private int pageNum = 1;
     private CustomerVisitFragmentAdapter adapter;
@@ -101,42 +92,16 @@ public class CustomerVisitFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_customer_visit2, container, false);
+        View view = inflater.inflate(R.layout.activity_customer_visit, container, false);
         ButterKnife.bind(this, view);
-        initTitle();
         initHandler();
         myData = true;
+        back_Img.setVisibility(View.INVISIBLE);
         initViewData();
         getData();
         Log.d("hqf","customervisitfrag oncreate...");
-        setSpinnerListener();
         return view;
-    }
 
-    public void initTitle(){
-        more_Tv.setVisibility(View.GONE);
-        whoSpinner.setVisibility(View.VISIBLE);
-        titleName_Tv.setText("拜访记录");
-        search_Ll.setVisibility(View.VISIBLE);
-        status_Ll.setVisibility(View.GONE);
-        who_Ll.setVisibility(View.GONE);
-        back_Iv.setVisibility(View.GONE);
-    }
-
-    public void setSpinnerListener(){
-        whoSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String whos = (String) whoSpinner.getAdapter().getItem(position);
-                myData = whos.equals("我的") ? true:false;
-                updateData();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     //刷新数据
@@ -168,10 +133,10 @@ public class CustomerVisitFragment extends Fragment {
         }
     }
 
-    @OnClick({R.id.back_iv, R.id.my_tv, R.id.xs_tv, R.id.add_ib, R.id.search_bt})
+    @OnClick({R.id.back_rl, R.id.my_tv, R.id.xs_tv, R.id.add_bt, R.id.search_bt})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_iv:
+            case R.id.back_rl:
                 //getActivity().finish();
                 break;
             case R.id.my_tv:
@@ -186,7 +151,7 @@ public class CustomerVisitFragment extends Fragment {
                 xsView.setVisibility(View.VISIBLE);
                 updateData();
                 break;
-            case R.id.add_ib:
+            case R.id.add_bt:
                 startActivity(new Intent(getActivity(), CustomerVisitAddActivity.class));
                 break;
             case R.id.search_bt:

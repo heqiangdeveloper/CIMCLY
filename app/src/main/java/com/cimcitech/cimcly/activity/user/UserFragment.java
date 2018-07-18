@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -66,8 +65,9 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class UserFragment extends Fragment {
-    @Bind(R.id.back_iv)
-    ImageView back_Iv;
+
+    @Bind(R.id.back_rl)
+    RelativeLayout backRl;
     @Bind(R.id.about_tv)
     TextView aboutTv;
     @Bind(R.id.clear_cache_linear)
@@ -80,13 +80,6 @@ public class UserFragment extends Fragment {
     TextView userNameTv;
     @Bind(R.id.clear_cache_tv)
     TextView clearCacheTv;
-
-    @Bind(R.id.more_tv)
-    TextView more_Tv;
-    @Bind(R.id.title_ll)
-    LinearLayout title_Ll;
-    @Bind(R.id.titleName_tv)
-    TextView titleName_Tv;
 
     public File mFile = null;
     public ProgressDialog pd;
@@ -143,10 +136,8 @@ public class UserFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_user2, container, false);
+        View view = inflater.inflate(R.layout.activity_user, container, false);
         ButterKnife.bind(this, view);
-        initTitle();
-        back_Iv.setVisibility(View.GONE);
         sp = getActivity().getSharedPreferences(Config.KEY_LOGIN_AUTO, MODE_PRIVATE);
         getUserInfo();
         getData();
@@ -180,12 +171,6 @@ public class UserFragment extends Fragment {
             Log.d("hqlog","get total cache tell a exception:" + e);
         }
         return view;
-    }
-
-    public void initTitle(){
-        more_Tv.setVisibility(View.GONE);
-        title_Ll.setVisibility(View.GONE);
-        titleName_Tv.setText("我的");
     }
 
     public boolean checkApkVersion() {
@@ -257,25 +242,8 @@ public class UserFragment extends Fragment {
                 }
                 break;
             case R.id.out_login:
-                new AlertDialog.Builder(getActivity())
-                        //.setTitle("提示")
-                        .setMessage("您确定要退出登录吗？")
-                        .setCancelable(false)
-                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //ModifyUserInfoPreference();//清除登录信息
-                                startActivity(new Intent(getActivity(), LoginActivity.class));
-                                getActivity().finish();
-                            }
-                        })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        }).create().show();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
                 break;
         }
     }

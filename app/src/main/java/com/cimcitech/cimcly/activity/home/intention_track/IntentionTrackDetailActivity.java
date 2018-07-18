@@ -1,12 +1,14 @@
 package com.cimcitech.cimcly.activity.home.intention_track;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,9 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 public class IntentionTrackDetailActivity extends BaseActivity {
+
+    @Bind(R.id.back_rl)
+    RelativeLayout backRl;
     @Bind(R.id.add_bt)
     LinearLayout addBt;
     @Bind(R.id.client_no)
@@ -57,14 +62,6 @@ public class IntentionTrackDetailActivity extends BaseActivity {
     TextView productVarietyNameTv;
     @Bind(R.id.user_name_tv)
     TextView userNameTv;
-    @Bind(R.id.more_tv)
-    TextView more_Tv;
-    @Bind(R.id.title_ll)
-    LinearLayout title_Ll;
-    @Bind(R.id.titleName_tv)
-    TextView titleName_Tv;
-    @Bind(R.id.who_spinner)
-    Spinner whoSpinner;
 
     private int opportId;
     private OpportUnitInfoVo infoVo;
@@ -72,20 +69,11 @@ public class IntentionTrackDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intention_track_detail2);
+        setContentView(R.layout.activity_intention_track_detail);
         ButterKnife.bind(this);
-        initTitle();
-
         opportId = getIntent().getIntExtra("opportId", 0);
         mLoading.show();
         getData();
-    }
-
-    public void initTitle(){
-        more_Tv.setVisibility(View.GONE);
-        whoSpinner.setVisibility(View.GONE);
-        title_Ll.setVisibility(View.GONE);
-        titleName_Tv.setText("意向订单详情");
     }
 
     @Override
@@ -96,10 +84,10 @@ public class IntentionTrackDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.back_iv, R.id.quoted_price_bt, R.id.follow_up_bt, R.id.record_bt,R.id.close_bt})
+    @OnClick({R.id.back_rl, R.id.quoted_price_bt, R.id.follow_up_bt, R.id.record_bt,R.id.close_bt})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_iv:
+            case R.id.back_rl:
                 finish();
                 break;
             case R.id.quoted_price_bt://准备报价
@@ -143,7 +131,7 @@ public class IntentionTrackDetailActivity extends BaseActivity {
             case R.id.close_bt://关闭记录
                 if(null != infoVo){
                     new AlertDialog.Builder(this)
-                            //.setTitle("提示")
+                            .setTitle("提示")
                             .setMessage("    关闭之后不能针对此意向进行报价，是否关闭此意向？")
                             .setCancelable(true)
                             .setPositiveButton("是", new DialogInterface.OnClickListener() {

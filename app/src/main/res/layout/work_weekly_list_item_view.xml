@@ -18,6 +18,7 @@
             android:layout_marginBottom="5dip"
             android:layout_marginLeft="5dip"
             android:layout_marginRight="5dip"
+            android:background="@drawable/bg_layout"
             android:orientation="vertical">
 
             <LinearLayout
@@ -102,10 +103,6 @@
                 android:text="context"
                 android:textColor="@color/black_33"
                 android:textSize="14sp" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="@color/colorPrimary"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

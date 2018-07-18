@@ -48,6 +48,9 @@ import butterknife.OnClick;
 import okhttp3.Call;
 
 public class ProductReportActivity extends AppCompatActivity{
+
+    @Bind(R.id.back_rl)
+    RelativeLayout backRl;
     @Bind(R.id.barChart)
     BarChart barChart;
 
@@ -188,12 +191,9 @@ public class ProductReportActivity extends AppCompatActivity{
     @Bind(R.id.area10_sure_tv)
     TextView area10_sure_Tv;
 
-    @Bind(R.id.title_ll)
-    LinearLayout title_Ll;
-    @Bind(R.id.more_tv)
-    TextView more_Tv;
-    @Bind(R.id.titleName_tv)
-    TextView titleName_Tv;
+
+
+
 
     private Result<ListReportPagers<ReportData>> status;
     private List<ReportData> data = new ArrayList<>();
@@ -262,19 +262,18 @@ public class ProductReportActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report_product2);
+        setContentView(R.layout.activity_report_product);
         ButterKnife.bind(this);
-        initTitle();
+
+        //PopupLoadingWindow();
+
+
         getData();
+
+
     }
 
-    public void initTitle(){
-        more_Tv.setVisibility(View.GONE);
-        titleName_Tv.setText("不同产品的意向订单统计");
-        title_Ll.setVisibility(View.GONE);
-    }
-
-    @OnClick({R.id.back_iv})
+    @OnClick({R.id.back_rl})
     public void onclick(View view) {
         switch (view.getId()){
             case R.id.back_rl:

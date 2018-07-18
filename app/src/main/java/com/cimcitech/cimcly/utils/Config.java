@@ -49,7 +49,7 @@ public class Config {
 
     //public static final String IP = "http://zh.lingyu.com:8081/ly";  //正式
 
-    //public static final String IP = "http://10.43.10.207:8080/ly";//本机
+    //public static final String IP = "http://10.34.40.196:8080/ly";//本机
 
     //public static final String IP = "http://10.43.10.35" + ":8080/ly";
 

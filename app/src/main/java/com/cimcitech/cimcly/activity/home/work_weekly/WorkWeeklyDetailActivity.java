@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +30,9 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 public class WorkWeeklyDetailActivity extends BaseActivity {
+
+    @Bind(R.id.back_rl)
+    RelativeLayout backRl;
     @Bind(R.id.start_time_tv)
     TextView startTimeTv;
     @Bind(R.id.end_time_tv)
@@ -57,12 +59,6 @@ public class WorkWeeklyDetailActivity extends BaseActivity {
     TextView performanceNameTv;
     @Bind(R.id.nextworktask_name_tv)
     TextView nextworktaskNameTv;
-    @Bind(R.id.more_tv)
-    TextView more_Tv;
-    @Bind(R.id.titleName_tv)
-    TextView titleName_Tv;
-    @Bind(R.id.title_ll)
-    LinearLayout title_Ll;
 
     private int repId;
     private WorkWeeklyDetailVo detailVo;
@@ -70,18 +66,11 @@ public class WorkWeeklyDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_work_weekly_detail2);
+        setContentView(R.layout.activity_work_weekly_detail);
         ButterKnife.bind(this);
-        initTitle();
         repId = this.getIntent().getIntExtra("repId", repId);
         getData();
         showViewData();
-    }
-
-    public void initTitle(){
-        more_Tv.setVisibility(View.GONE);
-        titleName_Tv.setText("工作汇报详情");
-        title_Ll.setVisibility(View.GONE);
     }
 
     public void showViewData() {
@@ -94,10 +83,10 @@ public class WorkWeeklyDetailActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.add_bt, R.id.back_iv})
+    @OnClick({R.id.add_bt, R.id.back_rl})
     public void onclick(View view) {
         switch (view.getId()) {
-            case R.id.back_iv:
+            case R.id.back_rl:
                 finish();
                 break;
             case R.id.add_bt:
@@ -133,7 +122,6 @@ public class WorkWeeklyDetailActivity extends BaseActivity {
                                         startTimeTv.setText(DateTool.getDateStr(detailVo.getData().getBegintime()));
                                         endTimeTv.setText(DateTool.getDateStr(detailVo.getData().getEndtime()));
                                         performanceTv.setText(detailVo.getData().getPerformance());
-                                        performanceTv.setSelection(performanceTv.getText().toString().length());
                                         nextworktaskTv.setText(detailVo.getData().getNextworktask());
                                         locationTv.setText(detailVo.getData().getSignInAddress());
                                     }

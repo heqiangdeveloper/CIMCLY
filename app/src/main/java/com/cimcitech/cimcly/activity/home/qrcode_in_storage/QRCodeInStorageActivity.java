@@ -119,7 +119,7 @@ public class QRCodeInStorageActivity extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_CODE && resultCode == RESULT_OK) {
             //Bundle bundle = data.getExtras();
-           // String scanResult = bundle.getString("result");
+            //String scanResult = bundle.getString("result");
             String scanResult = data.getStringExtra("CaptureIsbn");//这里一定要使用“CaptureIsbn”
             Log.d("hqtest","s is: " + scanResult);
             //二维码扫描的结果
@@ -176,13 +176,7 @@ public class QRCodeInStorageActivity extends AppCompatActivity{
                                     warn_Tv.setVisibility(View.GONE);
                                     result_Tv.setVisibility(View.GONE);
                                     in_storage_Btn.setVisibility(View.GONE);
-                                    if(RequestFeedbackStr.getMsg().trim().length() == 0){
-                                        Toast.makeText(QRCodeInStorageActivity.this,"入库成功",Toast
-                                           .LENGTH_SHORT).show();
-                                    }else{
-                                        Toast.makeText(QRCodeInStorageActivity.this,RequestFeedbackStr
-                                                .getMsg(),Toast.LENGTH_SHORT).show();
-                                    }
+                                    Toast.makeText(QRCodeInStorageActivity.this,"入库成功",Toast.LENGTH_SHORT).show();
                                     vehicleno = "";
                                 }else {
                                     warn_Tv.setVisibility(View.VISIBLE);
