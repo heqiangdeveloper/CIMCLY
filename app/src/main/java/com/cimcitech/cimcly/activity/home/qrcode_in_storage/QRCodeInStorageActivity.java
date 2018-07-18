@@ -19,7 +19,7 @@ import com.cimcitech.cimcly.R;
 import com.cimcitech.cimcly.bean.depart_request.RequestFeedbackBean;
 import com.cimcitech.cimcly.utils.Config;
 import com.google.gson.Gson;
-import com.xys.libzxing.zxing.activity.CaptureActivity;
+import com.google.zxing.client.android.CaptureActivity2;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -89,7 +89,7 @@ public class QRCodeInStorageActivity extends AppCompatActivity{
     }
 
     public void getQRCode(){
-        Intent i = new Intent(QRCodeInStorageActivity.this, CaptureActivity.class);
+        Intent i = new Intent(QRCodeInStorageActivity.this, CaptureActivity2.class);
         startActivityForResult(i,CAMERA_CODE);
     }
 
@@ -118,8 +118,9 @@ public class QRCodeInStorageActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_CODE && resultCode == RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString("result");
+            //Bundle bundle = data.getExtras();
+           // String scanResult = bundle.getString("result");
+            String scanResult = data.getStringExtra("CaptureIsbn");//这里一定要使用“CaptureIsbn”
             Log.d("hqtest","s is: " + scanResult);
             //二维码扫描的结果
             if((scanResult.length() > 29 && scanResult.substring(0,29).equals(StartStr))){
@@ -175,7 +176,13 @@ public class QRCodeInStorageActivity extends AppCompatActivity{
                                     warn_Tv.setVisibility(View.GONE);
                                     result_Tv.setVisibility(View.GONE);
                                     in_storage_Btn.setVisibility(View.GONE);
-                                    Toast.makeText(QRCodeInStorageActivity.this,"入库成功",Toast.LENGTH_SHORT).show();
+                                    if(RequestFeedbackStr.getMsg().trim().length() == 0){
+                                        Toast.makeText(QRCodeInStorageActivity.this,"入库成功",Toast
+                                           .LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(QRCodeInStorageActivity.this,RequestFeedbackStr
+                                                .getMsg(),Toast.LENGTH_SHORT).show();
+                                    }
                                     vehicleno = "";
                                 }else {
                                     warn_Tv.setVisibility(View.VISIBLE);

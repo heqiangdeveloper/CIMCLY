@@ -19,7 +19,7 @@ import com.cimcitech.cimcly.R;
 import com.cimcitech.cimcly.bean.test.VehicleInfoVo;
 import com.cimcitech.cimcly.utils.Config;
 import com.google.gson.Gson;
-import com.xys.libzxing.zxing.activity.CaptureActivity;
+import com.google.zxing.client.android.CaptureActivity2;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -89,7 +89,7 @@ public class QRCodeTestActivity extends AppCompatActivity{
     }
 
     public void getQRCode(){
-        Intent i = new Intent(QRCodeTestActivity.this, CaptureActivity.class);
+        Intent i = new Intent(QRCodeTestActivity.this, CaptureActivity2.class);
         startActivityForResult(i,CAMERA_CODE);
     }
 
@@ -118,8 +118,9 @@ public class QRCodeTestActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_CODE && resultCode == RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString("result");
+            //Bundle bundle = data.getExtras();
+            //String scanResult = bundle.getString("result");
+            String scanResult = data.getStringExtra("CaptureIsbn");
             Log.d("hqtest","s is: " + scanResult);
             if(scanResult.length() > 29 && scanResult.substring(0,29).equals(StartStr)){
                 vehicleno = scanResult.substring(29);

@@ -7,8 +7,8 @@ android {
         applicationId "com.cimcitech.cimcly"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 20
-        versionName "8.39"
+        versionCode 21
+        versionName "8.40"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -43,5 +43,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     testCompile 'junit:junit:4.12'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
-    compile project(':libzxing')
+    compile project(':LibZxing')
 }

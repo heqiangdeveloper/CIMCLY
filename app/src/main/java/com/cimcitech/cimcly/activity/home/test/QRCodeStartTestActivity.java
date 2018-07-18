@@ -24,7 +24,6 @@ import com.cimcitech.cimcly.bean.test.VehicleInfoVo;
 import com.cimcitech.cimcly.utils.Config;
 import com.cimcitech.cimcly.utils.ToastUtil;
 import com.cimcitech.cimcly.widget.BaseActivity;
-import com.xys.libzxing.zxing.activity.CaptureActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 

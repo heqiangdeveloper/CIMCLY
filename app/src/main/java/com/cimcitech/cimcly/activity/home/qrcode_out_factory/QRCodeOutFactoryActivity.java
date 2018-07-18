@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,31 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cimcitech.cimcly.R;
-import com.cimcitech.cimcly.activity.home.qrcode_in_storage.QRCodeInStorageActivity;
-import com.cimcitech.cimcly.activity.home.report.AreaReportDetailActivity;
-import com.cimcitech.cimcly.bean.ListReportPagers;
-import com.cimcitech.cimcly.bean.Result;
 import com.cimcitech.cimcly.bean.depart_request.RequestFeedbackBean;
-import com.cimcitech.cimcly.bean.report.Cell;
-import com.cimcitech.cimcly.bean.report.ReportData;
-import com.cimcitech.cimcly.bean.report.ReportVo;
 import com.cimcitech.cimcly.utils.Config;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.gson.Gson;
-import com.xys.libzxing.zxing.activity.CaptureActivity;
+import com.google.zxing.client.android.CaptureActivity2;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,7 +97,7 @@ public class QRCodeOutFactoryActivity extends AppCompatActivity{
     }
 
     public void getQRCode(){
-        Intent i = new Intent(QRCodeOutFactoryActivity.this, CaptureActivity.class);
+        Intent i = new Intent(QRCodeOutFactoryActivity.this, CaptureActivity2.class);
         startActivityForResult(i,CAMERA_CODE);
     }
 
@@ -143,8 +126,9 @@ public class QRCodeOutFactoryActivity extends AppCompatActivity{
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_CODE && resultCode == RESULT_OK) {
-            Bundle bundle = data.getExtras();
-            String scanResult = bundle.getString("result");
+            //Bundle bundle = data.getExtras();
+            //String scanResult = bundle.getString("result");
+            String scanResult = data.getStringExtra("CaptureIsbn");
             Log.d("hqtest","s is: " + scanResult);
             //二维码结果
             if(scanResult.length() > 29 && scanResult.substring(0,29).equals(StartStr)){
@@ -201,7 +185,12 @@ public class QRCodeOutFactoryActivity extends AppCompatActivity{
                                     warn_Tv.setVisibility(View.GONE);
                                     result_Tv.setVisibility(View.GONE);
                                     out_factory_Btn.setVisibility(View.GONE);
-                                    Toast.makeText(QRCodeOutFactoryActivity.this,"出厂成功",Toast.LENGTH_SHORT).show();
+                                    if(RequestFeedbackStr.getMsg().trim().length() == 0){
+                                        Toast.makeText(QRCodeOutFactoryActivity.this,"出厂成功",Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(QRCodeOutFactoryActivity.this,RequestFeedbackStr
+                                                .getMsg(),Toast.LENGTH_SHORT).show();
+                                    }
                                     vehicleno = "";
                                 }else {
                                     warn_Tv.setVisibility(View.VISIBLE);

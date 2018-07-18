@@ -22,7 +22,6 @@ import com.cimcitech.cimcly.R;
 import com.cimcitech.cimcly.bean.test.VehicleInfoVo;
 import com.cimcitech.cimcly.utils.Config;
 import com.google.gson.Gson;
-import com.xys.libzxing.zxing.activity.CaptureActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
